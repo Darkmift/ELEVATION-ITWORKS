@@ -1,10 +1,12 @@
 function makeBet() {
-  return fetch('https://yesno.wtf/api')
+  const yesNo = lowBankBalance() ? "no" : "yes";
+  return fetch(`https://yesno.wtf/api?force=${yesNo}`)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      return data.answer === 'yes' ? Promise.resolve() : Promise.reject();
+      console.log({ isLowBankBaalans: lowBankBalance(), data: data });
+      return data.answer === "yes" ? Promise.resolve() : Promise.reject();
     });
 }
 // function makeBet() {
@@ -17,19 +19,19 @@ function makeBet() {
 // }
 
 // get data-bet
-const betEl = document.querySelector('[data-bet]');
+const betEl = document.querySelector("[data-bet]");
 // get data-wins
-const winsEl = document.querySelector('[data-wins]');
+const winsEl = document.querySelector("[data-wins]");
 // get data-losess
-const lossesEl = document.querySelector('[data-losses]');
+const lossesEl = document.querySelector("[data-losses]");
 // get data-money
-const moneyEl = document.querySelector('[data-money]');
+const moneyEl = document.querySelector("[data-money]");
 // get data-bank
-const bankEl = document.querySelector('[data-bank]');
+const bankEl = document.querySelector("[data-bank]");
 
 const betAmount = 50;
 
-betEl.addEventListener('click', () => {
+betEl.addEventListener("click", () => {
   makeBet()
     .then(() => {
       moneyEl.textContent = parseInt(moneyEl.textContent) + betAmount;
@@ -42,3 +44,7 @@ betEl.addEventListener('click', () => {
       lossesEl.textContent = parseInt(lossesEl.textContent) + 1;
     });
 });
+
+const lowBankBalance = () => {
+  return parseInt(bankEl.textContent) <= 1500;
+};
