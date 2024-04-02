@@ -1,22 +1,50 @@
-debugger;
-function tenth() { }
+function getInfo() {
+  return fetch('https://yesno.wtf/api')
+    .then((response) => {
+      console.log('🚀 ~ .then ~ response:', response);
 
-function ninth() { tenth() }
+      // const output = response.json();
+      // console.log('🚀 ~ .then ~ response pending:', output);
 
-function eigth() { ninth() }
+      // return output;
+      throw new Error('OOPSIES went bad');
+    })
+    .then((data) => console.log('1'))
+    .catch((error) => console.error('ERROR OOPSIES', error))
+    .then((data) => console.log('2'))
+    .then((data) => console.log('3'))
+    .catch((error) => console.error('ERROR OOPSIES#2', error))
+    .then((data) => console.log('data?', data))
+    .catch((error) => console.error('ERROR OOPSIES #3', error));
+}
 
-function seventh() { eigth() }
+// getInfo();
 
-function sixth() { seventh() }
+function pChain() {
+  const p = new Promise((resolve, reject) => {
+    reject('2');
+    resolve('1');
+  });
+  // .then((data) => {
+  //   console.log('🚀 ~ pChain ~ data:', data);
+  //   return '2';
+  // })
+  // .then((data) => {
+  //   console.log('🚀 ~ pChain ~ data:', data);
+  //   return '3';
+  // });
 
-function fifth() { sixth() }
+  return p;
+}
 
-function fourth() { fifth() }
+// pChain()
+//   .then((data) => console.log('🚀 ~ pChain ~ data:', data))
+//   .catch((error) => console.error('🚀 ~ pChain ~ OOPS:', error));
 
-function third() { fourth() }
+function resolveAsPromise(val) {
+  return Promise.reject(val);
+}
 
-function second() { third() }
-
-function first() { second() }
-
-first();
+resolveAsPromise(6444)
+  .then((data) => console.log('🚀 ~ resolveAsPromise ~ data:', data))
+  .catch((error) => console.error('🚀 ~ resolveAsPromise ~ OOPS:', error));
