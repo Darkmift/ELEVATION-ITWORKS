@@ -16,6 +16,11 @@ function makeBet() {
 //   });
 // }
 
+function lowBankBalance(){
+  return parseInt(bankEl.textContent) <= 1000;
+}
+
+
 // get data-bet
 const betEl = document.querySelector('[data-bet]');
 // get data-wins
