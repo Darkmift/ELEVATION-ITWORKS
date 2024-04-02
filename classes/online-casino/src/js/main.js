@@ -4,12 +4,14 @@ async function makeBet() {
   try {
     const response = await fetch('https://yesno.wtf/api?force=' + yesOrno);
     const data = await response.json();
+    console.log('first')
 
     console.log({ isLowBankBalans: lowBankBalance(), data });
     if (data.answer === 'yes') return data.image;
     return Promise.reject(data.image);
   } catch (error) {
-    return error;
+    console.log("🚀 ~ makeBet ~ error:", error)
+    // NOTIFY UI of error
   }
 }
 
