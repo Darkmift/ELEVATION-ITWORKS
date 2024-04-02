@@ -1,14 +1,14 @@
 function makeBet() {
-  const yesOrno = lowBankBalance() ? "no" : "yes";
+  const Url = lowBankBalance() ? "https://yesno.wtf/api?force=no" : "https://yesno.wtf/api";
 
-  return fetch("https://yesno.wtf/api?force=" + yesOrno)
+  return fetch(Url)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log({ isLowBankBalans: lowBankBalance(), data });
+      // console.log({ isLowBankBalans: lowBankBalance(), data });
 
-      return data.answer === "yes" ? Promise.resolve() : Promise.reject();
+      return data.answer === "yes" ? Promise.resolve(data.image) : Promise.reject(data.image);
     });
 }
 // function makeBet() {
@@ -34,19 +34,25 @@ const lossesEl = document.querySelector("[data-losses]");
 const moneyEl = document.querySelector("[data-money]");
 // get data-bank
 const bankEl = document.querySelector("[data-bank]");
+// get img el
+const imgEl = document.querySelector("[data-image]")
 
 const betAmount = 50;
 
 betEl.addEventListener("click", () => {
   makeBet()
-    .then(() => {
+    .then((data) => {
+      // console.log(data)
       moneyEl.textContent = parseInt(moneyEl.textContent) + betAmount;
       bankEl.textContent = parseInt(bankEl.textContent) - betAmount;
       winsEl.textContent = parseInt(winsEl.textContent) + 1;
+      imgEl.setAttribute("src", data)
     })
-    .catch(() => {
+    .catch((error) => {
+      // console.log(error)
       moneyEl.textContent = parseInt(moneyEl.textContent) - betAmount;
       bankEl.textContent = parseInt(bankEl.textContent) + betAmount;
       lossesEl.textContent = parseInt(lossesEl.textContent) + 1;
+      imgEl.setAttribute("src", error)
     });
 });
