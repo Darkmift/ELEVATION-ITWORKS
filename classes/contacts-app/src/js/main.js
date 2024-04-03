@@ -1,5 +1,9 @@
-console.log('first');
-function main() {
+var globalPageNum = 1;
+const backBtn = document.querySelector('[data-back]');
+const nextBtn = document.querySelector('[data-next]');
+
+function init() {
+  toggleButtons();
   getContacts()
     .then((contacts) => {
       renderContacts(contacts);
@@ -9,10 +13,14 @@ function main() {
     });
 }
 
-async function getContacts() {
+async function getContacts(page = 1, limit = 10) {
   // fetch from ./src/data/contacts.json
-  const response = await fetch('./src/data/contacts.json');
-  const { results: contacts } = await response.json();
+  const response = await fetch(`https://randomuser.me/api/?page=${page}&results=${limit}&seed=abc`);
+  const {
+    results: contacts,
+    info: { page },
+  } = await response.json();
+  globalPageNum = page;
   return contacts;
 }
 
@@ -59,4 +67,36 @@ function renderContacts(contacts) {
   });
 }
 
-main();
+init();
+
+async function triggerReRender(rollback) {
+  try {
+    const contacts = await getContacts(globalPageNum, 10);
+    renderContacts(contacts);
+  } catch (error) {
+    console.log('🚀 ~ triggerReRender ~ error:', error);
+    // globalPageNum = rollback;
+  } finally {
+    toggleButtons();
+  }
+}
+
+backBtn.addEventListener('click', () => {
+  backBtn.setAttribute('disaled');
+  // globalPageNum--;
+  console.log('🚀 ~ globalPageNum:', globalPageNum);
+  triggerReRender(globalPageNum + 1);
+});
+
+nextBtn.addEventListener('click', () => {
+  // globalPageNum++;
+  console.log('🚀 ~ globalPageNum:', globalPageNum);
+  triggerReRender(globalPageNum - 1);
+});
+
+function toggleButtons() {
+  globalPageNum <= 1 ? backBtn.setAttribute('disabled', true) : backBtn.removeAttribute('disabled');
+  globalPageNum >= 100
+    ? nextBtn.setAttribute('disabled', true)
+    : nextBtn.removeAttribute('disabled');
+}
