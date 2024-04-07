@@ -1,19 +1,29 @@
 const state = {
   todos: [],
 };
+window.addEventListener("DOMContentLoaded", () => {
+  checkLoacalStorage();
+});
 
+function checkLoacalStorage() {
+  if (localStorage.length) {
+    const dataStorage = JSON.parse(localStorage.getItem("todos"));
+    state.todos = dataStorage;
+    state.todos.map((todo) => renderTodo(todo));
+  }
+}
 const CLASS_LISTS = {
-  INPUT: { VALID: 'input-valid', INVALID: 'input-invalid' },
-  ERROR: { SHOW: 'error-show', HIDE: 'error-hide' },
+  INPUT: { VALID: "input-valid", INVALID: "input-invalid" },
+  ERROR: { SHOW: "error-show", HIDE: "error-hide" },
 };
 
-const formEl = document.querySelector('.todo-form');
-const titleInputEl = formEl.querySelector('#title');
-const descriptionInputEl = formEl.querySelector('#description');
-const dateInputEl = formEl.querySelector('#date');
-const todoContainerEl = document.querySelector('.todos-container');
+const formEl = document.querySelector(".todo-form");
+const titleInputEl = formEl.querySelector("#title");
+const descriptionInputEl = formEl.querySelector("#description");
+const dateInputEl = formEl.querySelector("#date");
+const todoContainerEl = document.querySelector(".todos-container");
 
-formEl.addEventListener('submit', (e) => {
+formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   validateInputs(formEl);
 });
@@ -24,19 +34,19 @@ function validateInputs(formEl) {
       value: titleInputEl.value,
       isValid: false,
       element: titleInputEl,
-      errorElement: formEl.querySelector('#title-error'),
+      errorElement: formEl.querySelector("#title-error"),
     },
     description: {
       value: descriptionInputEl.value,
       isValid: false,
       element: descriptionInputEl,
-      errorElement: formEl.querySelector('#description-error'),
+      errorElement: formEl.querySelector("#description-error"),
     },
     date: {
       value: dateInputEl.value,
       isValid: false,
       element: dateInputEl,
-      errorElement: formEl.querySelector('#date-error'),
+      errorElement: formEl.querySelector("#date-error"),
     },
   };
 
@@ -48,12 +58,15 @@ function validateInputs(formEl) {
     };
 
     // validation for date input must be future date
-    if (obj.element.id === 'date') {
+    if (obj.element.id === "date") {
       const currentDate = new Date();
       const selectedDate = new Date(obj.value);
-      console.log('🚀 ~ Object.values ~ selectedDate:', { selectedDate, v: obj.value });
+      console.log("🚀 ~ Object.values ~ selectedDate:", {
+        selectedDate,
+        v: obj.value,
+      });
       if (!isDateValid(selectedDate) || selectedDate < currentDate) {
-        options.msg = 'Please select a future date';
+        options.msg = "Please select a future date";
         renderErrorEl(options);
         return;
       }
@@ -65,15 +78,15 @@ function validateInputs(formEl) {
     }
 
     // validation for empty input title and description
-    if (obj.value.trim() === '') {
-      options.msg = 'This field is required';
+    if (obj.value.trim() === "") {
+      options.msg = "This field is required";
       renderErrorEl(options);
       return;
     }
 
     // input valid lets make a todo
     options.isError = false;
-    options.msg = '';
+    options.msg = "";
     renderErrorEl(options);
     obj.isValid = true;
   });
@@ -117,14 +130,19 @@ function createTodo({ title, description, date }) {
   };
 
   state.todos.push(todo);
+  saveToStorage(state.todos);
   renderTodo(todo);
 }
 
+function saveToStorage(todos) {
+  localStorage.setItem("todos", JSON.stringify(todos));
+  console.log("localStorage-", localStorage);
+}
 function renderTodo(todo) {
-  const todoEl = document.createElement('div');
-  todoEl.classList.add('todo-item');
+  const todoEl = document.createElement("div");
+  todoEl.classList.add("todo-item");
   // add data-todo-id attribute to the todo element
-  todoEl.setAttribute('data-todo-id', todo.id);
+  todoEl.setAttribute("data-todo-id", todo.id);
   // <div class="todo-item" data=todo-id="jdfgjdfk">...</div>
   todoEl.innerHTML = /*html*/ `
       <div class="todo-item-content">
@@ -135,8 +153,8 @@ function renderTodo(todo) {
       <button class="delete-todo">🗑️</button>
       <!-- <button class="delete-todo" onclick="removeTodo('${todo.id}')">Delete</button> -->
   `;
-  const deleteButton = todoEl.querySelector('.delete-todo');
-  deleteButton.addEventListener('click', () => removeTodo(todo.id));
+  const deleteButton = todoEl.querySelector(".delete-todo");
+  deleteButton.addEventListener("click", () => removeTodo(todo.id));
   todoContainerEl.appendChild(todoEl);
 }
 
@@ -144,12 +162,13 @@ function removeTodo(id) {
   const todoEl = document.querySelector(`[data-todo-id="${id}"]`);
   todoEl.remove();
   state.todos = state.todos.filter((todo) => todo.id !== id);
+  saveToStorage(state.todos);
 }
 
 function makeUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     var r = (Math.random() * 16) | 0,
-      v = c == 'x' ? r : (r & 0x3) | 0x8;
+      v = c == "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 }
