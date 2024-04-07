@@ -18,6 +18,10 @@ function combine(prmX, prmY) {
   });
 }
 
+resolveImmediate().then((res) => console.log(res));
+
+resolveDelayed().then((res) => console.log(res));
+
 combine(resolveImmediate(), resolveDelayed()).then((sum) => {
   console.log(sum);
 });
