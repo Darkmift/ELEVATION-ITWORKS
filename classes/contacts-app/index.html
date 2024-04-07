@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJECT</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/src/css/style.css">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <h1>Contacts App</h1>
+    </nav>
+    <main>
+
+      <section>
+        <!-- a make a screen with a table columns avatar,name,phone,email -->
+        <table>
+          <thead>
+            <tr>
+              <th>Avatar</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody data-contacts-tbody>
+            <tr>
+              <td><img src="https://randomuser.me/api" alt="avatar"></td>
+              <td>John Doe</td>
+              <td>1234567890</td>
+              <td>aa@aa.com</td>
+            </tr>
+            <tr>
+              <td><img src="https://randomuser.me/api" alt="avatar"></td>
+              <td>Jane Doe</td>
+              <td>1234567890</td>
+              <td>aaa@aa.com</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- add back forward buttons for pagination -->
+        <div class="pagination">
+          <button data-back>Back</button>
+          <button data-next>Forward</button>
+        </div>
+
+      </section>
+    </main>
+    <script src="src/js/main.js" type="module"></script>
+</body>
+
+</html>

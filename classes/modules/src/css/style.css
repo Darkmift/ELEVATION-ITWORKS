@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+  padding: 0;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
