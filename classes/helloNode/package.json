@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon main.js"
+    "dev": "nodemon src/main.js"
   },
   "author": "AEK",
   "license": "ISC",
