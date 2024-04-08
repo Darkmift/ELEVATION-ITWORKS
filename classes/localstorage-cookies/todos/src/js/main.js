@@ -2,6 +2,8 @@ const state = {
   todos: [],
 };
 
+
+
 const CLASS_LISTS = {
   INPUT: { VALID: 'input-valid', INVALID: 'input-invalid' },
   ERROR: { SHOW: 'error-show', HIDE: 'error-hide' },
@@ -12,6 +14,7 @@ const titleInputEl = formEl.querySelector('#title');
 const descriptionInputEl = formEl.querySelector('#description');
 const dateInputEl = formEl.querySelector('#date');
 const todoContainerEl = document.querySelector('.todos-container');
+
 
 formEl.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -117,6 +120,7 @@ function createTodo({ title, description, date }) {
   };
 
   state.todos.push(todo);
+  localStorage.setItem(todo.id, JSON.stringify(todo))
   renderTodo(todo);
 }
 
@@ -138,12 +142,15 @@ function renderTodo(todo) {
   const deleteButton = todoEl.querySelector('.delete-todo');
   deleteButton.addEventListener('click', () => removeTodo(todo.id));
   todoContainerEl.appendChild(todoEl);
+  
 }
 
 function removeTodo(id) {
   const todoEl = document.querySelector(`[data-todo-id="${id}"]`);
   todoEl.remove();
   state.todos = state.todos.filter((todo) => todo.id !== id);
+  localStorage.removeItem(id)
+  
 }
 
 function makeUUID() {
@@ -158,3 +165,11 @@ function isDateValid(dateStr) {
   //01-01
   return !isNaN(new Date(dateStr));
 }
+
+if(localStorage.length > 0) {
+  for (let key in localStorage) {
+    renderTodo(JSON.parse(localStorage[key]))
+
+  }
+
+  }
