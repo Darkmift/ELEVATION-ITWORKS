@@ -1,5 +1,7 @@
 import { storeToLs, readFromLS } from './utils/localstorage.js';
 
+
+
 const CLASS_LISTS = {
   INPUT: { VALID: 'input-valid', INVALID: 'input-invalid' },
   ERROR: { SHOW: 'error-show', HIDE: 'error-hide' },
@@ -155,6 +157,7 @@ function renderTodo(todo) {
   const deleteButton = todoEl.querySelector('.delete-todo');
   deleteButton.addEventListener('click', () => removeTodo(todo.id));
   todoContainerEl.appendChild(todoEl);
+  
 }
 
 function removeTodo(id) {
