@@ -14,7 +14,8 @@ const config = {
   },
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    '^.+\\.[t|j]sx?$': 'babel-jest',
+    // '^.+\\.js$': 'babel-jest',
   },
   verbose: true,
 };
