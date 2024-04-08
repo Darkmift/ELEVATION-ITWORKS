@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 async function makeBet() {
   const yesOrno = lowBankBalance() ? 'no' : 'yes';
 
@@ -19,13 +20,21 @@ function makeBet2() {
   const yesOrno = lowBankBalance() ? 'no' : 'yes';
 
   return fetch('https://yesno.wtf/api?force=' + yesOrno)
+=======
+function makeBet() {
+  return fetch("https://yesno.wtf/api")
+>>>>>>> 2b18ab4d657f11c2cc44e03e9077a8a3412ad9a9
     .then((response) => {
       return response.json();
     })
     .then((data) => {
+<<<<<<< HEAD
       // console.log({ isLowBankBalans: lowBankBalance(), data });
 
       return data.answer === 'yes' ? Promise.resolve() : Promise.reject();
+=======
+      return data.answer === "yes" ? Promise.resolve() : Promise.reject();
+>>>>>>> 2b18ab4d657f11c2cc44e03e9077a8a3412ad9a9
     });
 }
 
@@ -36,10 +45,6 @@ function makeBet1() {
 
     result ? resolve() : reject();
   });
-}
-
-function lowBankBalance() {
-  return parseInt(bankEl.textContent) <= 1500;
 }
 
 // get data-bet
@@ -55,11 +60,14 @@ const bankEl = document.querySelector("[data-bank]");
 // get img el
 const imgEl = document.querySelector("[data-image]")
 
+const imgEl = document.querySelector("[data-img]");
+
 const betAmount = 50;
 
 betEl.addEventListener('click', () => {
   makeBet()
     .then((data) => {
+<<<<<<< HEAD
       // console.log(data)
       moneyEl.textContent = parseInt(moneyEl.textContent) + betAmount;
       bankEl.textContent = parseInt(bankEl.textContent) - betAmount;
@@ -72,5 +80,23 @@ betEl.addEventListener('click', () => {
       bankEl.textContent = parseInt(bankEl.textContent) + betAmount;
       lossesEl.textContent = parseInt(lossesEl.textContent) + 1;
       imgEl.setAttribute("src", error)
+=======
+      console.log(data);
+      moneyEl.textContent = parseInt(moneyEl.textContent) + betAmount;
+      bankEl.textContent = parseInt(bankEl.textContent) - betAmount;
+      winsEl.textContent = parseInt(winsEl.textContent) + 1;
+      imgEl.setAttribute("src", data);
+    })
+    .catch((error) => {
+      console.log(error);
+      moneyEl.textContent = parseInt(moneyEl.textContent) - betAmount;
+      bankEl.textContent = parseInt(bankEl.textContent) + betAmount;
+      lossesEl.textContent = parseInt(lossesEl.textContent) + 1;
+      imgEl.setAttribute("src", error);
+>>>>>>> 2b18ab4d657f11c2cc44e03e9077a8a3412ad9a9
     });
 });
+
+const lowBankBalance = () => {
+  return parseInt(bankEl.textContent) <= 1500;
+};
