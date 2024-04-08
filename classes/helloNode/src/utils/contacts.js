@@ -1,3 +1,3 @@
-export function getContactName(contact) {
+export function getContactName(contact){
   return contact.name;
 }
