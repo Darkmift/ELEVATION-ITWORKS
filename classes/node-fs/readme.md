@@ -23,6 +23,17 @@ Design the data structure for a contact.
 Implement functions to create, read, update, and delete contacts in the database.
 Ensure that the contact ID is unique and handle any potential errors gracefully.
 
+```js
+{
+  name:'Jhon doe',
+  email:'jhon@doe.com', // must be unique
+  createdDate:new Date(), // when created
+  updatedDate:new Date() // date of last update operation
+}
+
+// when updating a user you can ONLY change the name
+```
+
 ## Team 3: Creating Tests for the Contact CRUD
 Objective: Write tests to ensure the Contact CRUD operations work as expected. This includes testing for successful operations and handling of potential failure cases.
 Skills and Concepts:
