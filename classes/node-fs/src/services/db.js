@@ -9,18 +9,18 @@ export default function getDb() {
 }
 
 async function storeData(path, data, returnData = false) {
-  db.push(path, data);
+  getDb().push(path, data);
   if (returnData) {
     return await getData(path);
   }
 }
 
 async function getData(path) {
-  return await db.getData(path);
+  return await getDb().getData(path);
 }
 
 async function deleteData(path) {
-  db.delete(path);
+  getDb().delete(path);
 }
 
 export { storeData, getData, deleteData };
