@@ -17,6 +17,20 @@
       "request": "launch",
       "type": "node-terminal",
       "cwd": "${workspaceFolder}/classes/helloNode"
+    },
+    {
+      "command": "npm run dev",
+      "name": "Run NodeFS",
+      "request": "launch",
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}/classes/node-fs"
+    },
+    {
+      "command": "npm run test",
+      "name": "Test NodeFS",
+      "request": "launch",
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}/classes/node-fs"
     }
   ]
 }
