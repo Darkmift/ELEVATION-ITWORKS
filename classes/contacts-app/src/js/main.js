@@ -1,6 +1,6 @@
 var globalPageNum = 1;
-const backBtn = document.querySelector('[data-back]');
-const nextBtn = document.querySelector('[data-next]');
+const backBtn = document.querySelector("[data-back]");
+const nextBtn = document.querySelector("[data-next]");
 
 function init() {
   toggleButtons();
@@ -15,20 +15,21 @@ function init() {
 
 async function getContacts(page = 1, limit = 10) {
   // fetch from ./src/data/contacts.json
-  const response = await fetch(`https://randomuser.me/api/?page=${page}&results=${limit}&seed=abc`);
-  const {
-    results: contacts,
-    info: { page },
-  } = await response.json();
-  globalPageNum = page;
+  const response = await fetch(
+    `https://randomuser.me/api/?page=${page}&results=${limit}&seed=abc`
+  );
+  const { results: contacts, info: pageResponse } = await response.json();
+  console.log(pageResponse);
+  globalPageNum = pageResponse.page;
+
   return contacts;
 }
 
 // take in contacts and render to data-contacts-tbody
 function renderContacts(contacts) {
-  console.log('🚀 ~ renderContacts ~ contacts:', contacts);
-  const tbody = document.querySelector('[data-contacts-tbody]');
-  tbody.innerHTML = ''; // clear tbody
+  console.log("🚀 ~ renderContacts ~ contacts:", contacts);
+  const tbody = document.querySelector("[data-contacts-tbody]");
+  tbody.innerHTML = ""; // clear tbody
   // loop through contacts
 
   // create a tr element
@@ -37,29 +38,29 @@ function renderContacts(contacts) {
   // append tr to tbody
   // contacts are from random.user.me
   contacts.forEach((contact) => {
-    const tr = document.createElement('tr');
-    const name = Object.values(contact.name).join(' ');
+    const tr = document.createElement("tr");
+    const name = Object.values(contact.name).join(" ");
     const email = contact.email;
     const phone = contact.phone;
     const avatar = contact.picture.thumbnail;
 
     // avatar
-    const tdAvatar = document.createElement('td');
-    const img = document.createElement('img');
+    const tdAvatar = document.createElement("td");
+    const img = document.createElement("img");
     img.src = avatar;
     img.alt = name;
     tdAvatar.appendChild(img);
     tr.appendChild(tdAvatar);
     // name
-    const tdName = document.createElement('td');
+    const tdName = document.createElement("td");
     tdName.textContent = name;
     tr.appendChild(tdName);
     // phone
-    const tdPhone = document.createElement('td');
+    const tdPhone = document.createElement("td");
     tdPhone.textContent = phone;
     tr.appendChild(tdPhone);
     // email
-    const tdEmail = document.createElement('td');
+    const tdEmail = document.createElement("td");
     tdEmail.textContent = email;
     tr.appendChild(tdEmail);
 
@@ -69,34 +70,36 @@ function renderContacts(contacts) {
 
 init();
 
-async function triggerReRender(rollback) {
+async function triggerReRender() {
   try {
     const contacts = await getContacts(globalPageNum, 10);
     renderContacts(contacts);
   } catch (error) {
-    console.log('🚀 ~ triggerReRender ~ error:', error);
+    console.log("🚀 ~ triggerReRender ~ error:", error);
     // globalPageNum = rollback;
   } finally {
     toggleButtons();
   }
 }
 
-backBtn.addEventListener('click', () => {
-  backBtn.setAttribute('disaled');
-  // globalPageNum--;
-  console.log('🚀 ~ globalPageNum:', globalPageNum);
+backBtn.addEventListener("click", () => {
+  backBtn.setAttribute("disaled");
+  globalPageNum--;
+  console.log("🚀 ~ globalPageNum:", globalPageNum);
   triggerReRender(globalPageNum + 1);
 });
 
-nextBtn.addEventListener('click', () => {
-  // globalPageNum++;
-  console.log('🚀 ~ globalPageNum:', globalPageNum);
+nextBtn.addEventListener("click", () => {
+  globalPageNum++;
+  console.log("🚀 ~ globalPageNum:", globalPageNum);
   triggerReRender(globalPageNum - 1);
 });
 
 function toggleButtons() {
-  globalPageNum <= 1 ? backBtn.setAttribute('disabled', true) : backBtn.removeAttribute('disabled');
+  globalPageNum <= 1
+    ? backBtn.setAttribute("disabled", true)
+    : backBtn.removeAttribute("disabled");
   globalPageNum >= 100
-    ? nextBtn.setAttribute('disabled', true)
-    : nextBtn.removeAttribute('disabled');
+    ? nextBtn.setAttribute("disabled", true)
+    : nextBtn.removeAttribute("disabled");
 }

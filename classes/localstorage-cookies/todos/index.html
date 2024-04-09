@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJECT</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/src/css/style.css">
+</head>
+
+<body>
+  <!-- title -->
+  <h1>Todo App</h1>
+  <!-- form -->
+  <form class="todo-form container">
+    <!-- add a title,description,date input and create todo button -->
+    <input type="text" id="title" placeholder="Title">
+    <p class="error-hide" id="title-error"></p>
+    <input type="text" id="description" placeholder="Description">
+    <p class="error-hide" id="description-error"></p>
+    <input type="date" id="date">
+    <p class="error-hide" id="date-error"></p>
+    <button type="submit" id="create-todo">Create Todo</button>
+  </form>
+  <!-- show the todos -->
+  <div class="todos-container container">
+    <!-- <div class="todo-item">
+      <div class="todo-item-content">
+        <h2>Todo Title</h2>
+        <p>Todo Description</p>
+        <p>Todo Date</p>
+      </div>
+      <button class="delete-todo">Delete</button>
+    </div> -->
+  </div>
+  <script src="src/js/main.js" type="module"></script>
+</body>
+
+</html>
