@@ -25,6 +25,7 @@ describe('Contacts Service tests', () => {
       expect(result.name).toEqual(user1.name);
       expect(result.email).toEqual(user1.email);
       expect(result.createdDate).toBeDefined();
+      expect(result.updatedDate).toBeDefined();
     });
   });
 
@@ -46,8 +47,11 @@ describe('Contacts Service tests', () => {
   describe('Should update a contact', () => {
     test('update', async () => {
       await add(user2);
-      const result = await update(user2.email, user2.name);
-      expect(result).toEqual(user2);
+      const result = await update(user2.email, user2.name, true);
+      expect(result.name).toEqual(user2.name);
+      expect(result.email).toEqual(user2.email);
+      expect(result.createdDate).toBeDefined();
+      expect(result.updatedDate).toBeDefined();
     });
   });
 });
