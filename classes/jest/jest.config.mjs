@@ -180,8 +180,11 @@ const config = {
 
   // A map from regular expressions to paths to transformers
   // Add this transform configuration
+  // transform: {
+  //   '^.+\\.js$': 'babel-jest',
+  // },
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    '.(js|jsx|ts|tsx)$': 'babel-jest'
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
