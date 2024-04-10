@@ -1,3 +1,5 @@
 {
-  "ignore": ["myDataBase.json"]
+    "ignore": [
+        "myDataBase.json"
+    ]
 }
