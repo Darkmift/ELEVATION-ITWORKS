@@ -66,7 +66,7 @@ describe('DB tests', () => {
   });
 
   describe('Should store data to array', () => {
-    test.only('saveToArray', async () => {
+    test('saveToArray', async () => {
       await saveToArray(usersPath, mockUser2, uniqueKey);
       const data = await getData(usersPath);
       expect(data).toEqual([mockUser2]);
