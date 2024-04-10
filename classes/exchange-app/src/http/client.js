@@ -20,7 +20,7 @@ export async function getSupportedCurrencies() {
 
 export async function getExchangeResult(baseCurrency, targetCurrency, amount) {
   try {
-    return await (axiosInstance.get(`/pair/${baseCurrency}/${targetCurrency}/${amount}`)).data;
+    return (await axiosInstance.get(`/pair/${baseCurrency}/${targetCurrency}/${amount}`)).data;
   } catch (error) {
     console.error('Error while fetching exchange result', error);
     return null;
