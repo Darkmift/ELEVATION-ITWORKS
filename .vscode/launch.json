@@ -31,6 +31,20 @@
       "request": "launch",
       "type": "node-terminal",
       "cwd": "${workspaceFolder}/classes/node-fs"
+    },
+    {
+      "command": "npm run dev",
+      "name": "Run ExchangeApp",
+      "request": "launch",
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}/classes/exchange-app"
+    },
+    {
+      "command": "npm run test",
+      "name": "Test ExchangeApp",
+      "request": "launch",
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}/classes/exchange-app"
     }
   ]
 }
