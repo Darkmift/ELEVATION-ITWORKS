@@ -1,7 +1,20 @@
-import getDb, { storeData, getData, deleteData } from './db';
+import getDb, {
+  storeData,
+  getData,
+  getArray,
+  saveToArray,
+  removeFromArray,
+  deleteData,
+  updateArray,
+  getOneFromArray,
+} from './db';
 
 const mockUser = { name: 'John Doe' };
+const mockUser2 = { name: 'John Doe', email: "a@a.com" };
 const userPath = '/user';
+const usersPath = '/users';
+const uniqueKey = "email";
+
 describe('DB tests', () => {
   describe('Should be defined', () => {
     test('getDb', () => {
@@ -49,6 +62,14 @@ describe('DB tests', () => {
       } catch (error) {
         expect(error).toBeDefined();
       }
+    });
+  });
+
+  describe('Should store data to array', () => {
+    test('saveToArray', async () => {
+      await saveToArray(usersPath, mockUser2, uniqueKey);
+      const data = await getData(usersPath);
+      expect(data).toEqual([mockUser2]);
     });
   });
 });
