@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  min-height: 100vh;
+  width: 90vw;
+  margin: 0 auto;
+  border-color: #ccc;
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+
+h1 {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: aliceblue;
+}
+
+button {
+  background-color: #6299c9;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
