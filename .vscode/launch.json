@@ -45,6 +45,20 @@
       "request": "launch",
       "type": "node-terminal",
       "cwd": "${workspaceFolder}/classes/exchange-app"
+    },
+    {
+      "command": "npm run dev",
+      "name": "Run MongoApp",
+      "request": "launch",
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}/classes/mongo"
+    },
+    {
+      "command": "npm run test",
+      "name": "Test MongoApp",
+      "request": "launch",
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}/classes/mongo"
     }
   ]
 }
