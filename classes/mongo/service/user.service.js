@@ -8,6 +8,7 @@ export async function insertUser(user) {
     const db = client.db(DB_ELEVATION);
     const users = db.collection(COLLECTION.USERS);
     const result = await users.insertOne(user);
+    console.log({ insert: result });
     console.log(`User inserted with the following id: ${result.insertedId}`);
   } catch (error) {
     console.error('Failed to insert user:', error);
@@ -49,8 +50,9 @@ export async function updateUserByEmail(email, user) {
     const client = await dbConnection.connect();
     const db = client.db(DB_ELEVATION);
     const users = db.collection(COLLECTION.USERS);
-    const result = await users.updateOne({ email }, { $set: user });
-    console.log(`User updated with the following id: ${result.upsertedId}`);
+    const result = await users.findOneAndUpdate({ email }, { $set: user });
+    console.log({ update: result });
+    // console.log(`User updated with the following id: ${result.upsertedId}`);
   } catch (error) {
     console.error('Failed to update user:', error);
     return null;
@@ -64,6 +66,7 @@ export async function deleteUserByEmail(email) {
     const db = client.db(DB_ELEVATION);
     const users = db.collection(COLLECTION.USERS);
     const result = await users.deleteOne({ email });
+    console.log({ remove: result });
     console.log(`User deleted with the following id: ${result.deletedId}`);
   } catch (error) {
     console.error('Failed to delete user:', error);
