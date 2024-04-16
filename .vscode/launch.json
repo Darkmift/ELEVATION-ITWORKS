@@ -59,6 +59,13 @@
       "request": "launch",
       "type": "node-terminal",
       "cwd": "${workspaceFolder}/classes/mongo"
+    },
+    {
+      "command": "npm start",
+      "name": "Run HelloExpressApi",
+      "request": "launch",
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}/classes/hello-express-api"
     }
   ]
 }
