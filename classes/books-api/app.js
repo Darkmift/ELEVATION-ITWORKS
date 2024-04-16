@@ -1,10 +1,12 @@
 import express from 'express';
 
-const app = express();
 const port = 3000 || PORT;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+const app = express();
+app.use(express.json());
+
+app.get('/helth', (req, res) => {
+  res.json({ 'ok:': new Date().toDateString() });
 });
 
 export default app;
