@@ -10,12 +10,12 @@ router.get('/author/:authorId', bookController.getBooksByAuthorId);
 router.get('/filter', bookController.getBooksByFilter);
 router.post(
   '/',
-  // bookMiddlewares.validateCreateBook,
+  bookMiddlewares.validateCreateBook,
   bookController.createBook
 );
 router.put(
   '/:id',
-  // bookMiddlewares.validateUpdateBook,
+  bookMiddlewares.validateUpdateBook,
   bookController.updateBook
 );
 router.delete('/:id', bookController.deleteBook);
