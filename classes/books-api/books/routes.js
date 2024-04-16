@@ -8,7 +8,16 @@ router.get('/', bookController.getBooks);
 router.get('/single/:id', bookController.getBookById);
 router.get('/author/:authorId', bookController.getBooksByAuthorId);
 router.get('/filter', bookController.getBooksByFilter);
-router.post('/', bookMiddlewares.validateCreateBook, bookController.createBook);
-router.put('/', bookMiddlewares.validateUpdateBook, bookController.updateBook);
+router.post(
+  '/',
+  // bookMiddlewares.validateCreateBook,
+  bookController.createBook
+);
+router.put(
+  '/:id',
+  // bookMiddlewares.validateUpdateBook,
+  bookController.updateBook
+);
+router.delete('/:id', bookController.deleteBook);
 
 export default router;

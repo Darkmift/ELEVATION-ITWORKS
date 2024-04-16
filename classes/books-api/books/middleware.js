@@ -7,9 +7,9 @@ const options = {
 };
 
 // Middleware to validate the request body for creating a new book
-export const validateCreateBook = (req, res, next) => {
+export const validateCreateBook = async (req, res, next) => {
   logger.info(`Validating create book request body req:${req.uuid}`);
-  const { error } = createBookSchema.validate(req.body, options);
+  const { error } = await createBookSchema.validateAsync(req.body, options);
   if (error) {
     return res.status(400).json({ error: error.details });
   }
@@ -17,8 +17,8 @@ export const validateCreateBook = (req, res, next) => {
 };
 
 // Middleware to validate the request body for updating an existing book
-export const validateUpdateBook = (req, res, next) => {
-  const { error } = updateBookSchema.validate(req.body, options);
+export const validateUpdateBook = async (req, res, next) => {
+  const { error } = await updateBookSchema.validateAsync(req.body, options);
   if (error) {
     return res.status(400).json({ error: error.details });
   }
