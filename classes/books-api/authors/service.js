@@ -1,7 +1,21 @@
-import authors from '../jsons/authors.json' assert { type: 'json' };
-
+import logger from '../utils/logger.js';
+import AuthorModel from './models/authors.js';
 // export a method that returns all authors
-export const getAuthors = () => authors;
+export const getAuthors = async () => {
+  try {
+    return await AuthorModel.find({});
+  } catch (error) {
+    logger.error(error);
+    return null;
+  }
+};
 
 // export a method that returns an author by id
-export const getAuthorById = (id) => authors.find((author) => author.id.$oid === id);
+export const getAuthorById = async (id) => {
+  try {
+    return await AuthorModel.findById(id);
+  } catch (error) {
+    logger.error(error);
+    return null;
+  }
+};

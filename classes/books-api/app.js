@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import express from 'express';
 import logger from './utils/logger.js';
 import mainRouter from './routes.main.js';
+import AuthorModel from './authors/models/authors.js';
 
 const app = express();
 app.use(express.json());
