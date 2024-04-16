@@ -1,5 +1,5 @@
 import booksJson from '../jsons/books.json' assert { type: 'json' };
-import { getAuthorById } from '../authors/service';
+import { v4 as uuidv4 } from 'uuid';
 
 const books = booksJson;
 
@@ -18,6 +18,7 @@ export const getBooksByFilter = (filter) =>
 
 // export a method that creates a book
 export const createBook = (book) => {
+  book.id = uuidv4();
   books.push(book);
   return book;
 };
@@ -34,4 +35,14 @@ export const deleteBook = (id) => {
   const index = books.findIndex((book) => book.id === id);
   books.splice(index, 1);
   return true;
+};
+
+export default {
+  getBooks,
+  getBookById,
+  getBooksByAuthorId,
+  getBooksByFilter,
+  createBook,
+  updateBook,
+  deleteBook,
 };

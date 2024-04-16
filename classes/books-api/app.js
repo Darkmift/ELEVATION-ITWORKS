@@ -1,12 +1,21 @@
+import { v4 as uuidv4 } from 'uuid';
 import express from 'express';
 import logger from './utils/logger.js';
+import mainRouter from './routes.main.js';
 
 const app = express();
 app.use(express.json());
 
-app.get('/health', (req, res) => {
-  res.json({ ok: new Date().toDateString() });
+app.all('*', (req, res, next) => {
+  req.uuid = uuidv4();
+  return next();
 });
+
+app.get('/health', (req, res) => {
+  res.json({ ok: new Date().toDateString(), uuid: req.uuid });
+});
+
+app.use('/api/v1', mainRouter);
 
 // Catch-all error handling middleware
 app.use((err, req, res, next) => {

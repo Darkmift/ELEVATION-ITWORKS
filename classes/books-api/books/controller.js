@@ -1,4 +1,5 @@
-import bookService from './service';
+import logger from '../utils/logger.js';
+import bookService from './service.js';
 
 // export a controller method that returns all books
 export const getBooks = (req, res) => {
@@ -37,6 +38,7 @@ export const getBooksByFilter = (req, res) => {
 export const createBook = (req, res) => {
   const book = req.body;
   const newBook = bookService.createBook(book);
+  logger.info(`Book created: ${JSON.stringify(newBook)} req: ${req.uuid}`);
   return res.status(201).json(newBook);
 };
 
@@ -55,4 +57,14 @@ export const deleteBook = (req, res) => {
     return res.status(404).json({ error: 'Book not found' });
   }
   return res.status(204).end();
+};
+
+export default {
+  getBooks,
+  getBookById,
+  getBooksByAuthorId,
+  getBooksByFilter,
+  createBook,
+  updateBook,
+  deleteBook,
 };
