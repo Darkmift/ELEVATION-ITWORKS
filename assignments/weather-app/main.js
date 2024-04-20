@@ -1,4 +1,5 @@
 import './style.css';
-import { handler } from './App';
+import { handler, lookupCity } from './App';
+import { DEFAULT_CITY_NAME } from './config';
 
-handler('home');
+lookupCity(DEFAULT_CITY_NAME).then(() => handler('home'));
