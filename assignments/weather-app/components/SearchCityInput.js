@@ -1,5 +1,9 @@
+import { storeToActiveListeneres, removeListenerIfExists } from '../utils/cleanupEventsIfExists';
 import './SearchCityInput.css';
 export default function SearchCityInput(onChangeHandler) {
+  const LISTENER_KEY_1 = 'handleInput';
+  removeListenerIfExists(LISTENER_KEY_1);
+
   // debounce the input
   let timeout;
   const handleInput = (e) => {
@@ -16,5 +20,10 @@ export default function SearchCityInput(onChangeHandler) {
   inputEl.classList.add('search-city-input');
   inputEl.setAttribute('placeholder', 'Enter city name');
   inputEl.addEventListener('input', handleInput);
+
+  storeToActiveListeneres(LISTENER_KEY_1, () => {
+    inputEl.removeEventListener('input', handleInput);
+  });
+
   return inputEl;
 }

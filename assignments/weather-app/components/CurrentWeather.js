@@ -1,5 +1,6 @@
 import './CurrentWeather.css';
 import { globalState } from '../App';
+import { removeListenerIfExists, storeToActiveListeneres } from '../utils/cleanupEventsIfExists';
 
 const state = {
   weatherText: 'Scattered Clouds',
@@ -96,6 +97,10 @@ export function TopSectionRight({ icon, cityName, temp, tempUnit }) {
 }
 
 export function TopSectionLeft({ isFavorite, Key, toggleFavorite }) {
+  const LISTENER_KEY_1 = 'handtoggleFavoriteElClickleInput';
+
+  removeListenerIfExists(LISTENER_KEY_1);
+
   const topSectionRightEl = document.createElement('div');
   topSectionRightEl.classList.add('top-section-right');
   topSectionRightEl.innerHTML = /*html*/ `
@@ -108,6 +113,10 @@ export function TopSectionLeft({ isFavorite, Key, toggleFavorite }) {
 
   const toggleFavoriteEl = topSectionRightEl.querySelector('[data-toggle-favorite]');
   toggleFavoriteEl.addEventListener('click', () => toggleFavorite(Key));
+
+  storeToActiveListeneres(LISTENER_KEY_1, () => {
+    toggleFavoriteEl.removeEventListener('click', () => toggleFavorite(Key));
+  });
 
   return topSectionRightEl;
 }
