@@ -1,6 +1,5 @@
 import request from 'supertest';
 import app from '../../../app';
-import { connectDB, dropCollections, dropDB } from '../../../mocks/db/mongoose.mock';
 
 const ENDPOINT = '/api/v1/books';
 
@@ -13,18 +12,6 @@ const newBook = {
 };
 
 describe('Books', function () {
-  beforeAll(async () => {
-    await connectDB();
-  });
-
-  afterAll(async () => {
-    await dropDB();
-  });
-
-  afterEach(async () => {
-    await dropCollections();
-  });
-
   describe('GET all Books', function () {
     it('should return all books', async () => {
       const response = await request(app).get(ENDPOINT);

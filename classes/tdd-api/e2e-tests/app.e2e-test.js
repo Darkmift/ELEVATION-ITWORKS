@@ -1,20 +1,7 @@
 import request from 'supertest';
 import app from '../app';
-import { connectDB, dropCollections, dropDB } from '../mocks/db/mongoose.mock';
 
 describe('E2E App', function () {
-  beforeAll(async () => {
-    await connectDB();
-  });
-
-  afterAll(async () => {
-    await dropDB();
-  });
-
-  afterEach(async () => {
-    await dropCollections();
-  });
-
   describe('GET /', function () {
     it('responds with json', async () => {
       const output = { message: 'Hello World' };

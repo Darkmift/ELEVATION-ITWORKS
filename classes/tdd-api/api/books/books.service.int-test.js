@@ -1,16 +1,6 @@
 import BooksService from './books.service';
-import { connectDB, dropDB, dropCollections } from '../../mocks/db/mongoose.mock';
 import BookModel from './books.model';
 describe('BooksService', () => {
-  beforeAll(async () => {
-    await connectDB();
-  });
-
-  afterAll(async () => {
-    await dropCollections();
-    await dropDB();
-  });
-
   describe('create', () => {
     it('should call BookModel.create with the correct arguments', async () => {
       const book = { name: 'Title', author: 'Author', pages: 100, price: 10, published: new Date() };
