@@ -5,6 +5,7 @@
 
 /** @type {import('jest').Config} */
 const config = {
+  rootDir: './',
   clearMocks: true,
   collectCoverage: true,
   coverageDirectory: 'coverage',
@@ -16,7 +17,11 @@ const config = {
   transform: {
     '.(js|jsx|ts|tsx)$': 'babel-jest',
   },
-  preset: '@shelf/jest-mongodb',
+  testMatch: ['**/*.(test|unit-test|int-test|e2e-test).(js|jsx|ts|tsx)'],
+  globalSetup: './jest.global-setup.js',
+  globalTeardown: './jest.global-teardown.js',
+  setupFilesAfterEnv: ['./jest.setup.js'],
+  verbose: true,
 };
 
 export default config;

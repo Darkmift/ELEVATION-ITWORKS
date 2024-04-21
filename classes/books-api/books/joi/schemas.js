@@ -7,7 +7,8 @@ async function validateAuthorId(value, helpers) {
   const author = await getAuthorById(value);
 
   if (!author?.id) {
-    return helpers.error('any.invalid', 'Author ID is not valid or does not exist');
+    // Corrected error reporting
+    return helpers.error('any.invalid', { message: 'Author ID is not valid or does not exist' });
   }
   return value; // Return the validated value
 }
@@ -17,7 +18,8 @@ async function validateBookId(value, helpers) {
   const book = await getBookById(value);
 
   if (!book?.id) {
-    return helpers.error('any.invalid', 'Book ID is not valid or does not exist');
+    // Corrected error reporting
+    return helpers.error('any.invalid', { message: 'Book ID is not valid or does not exist' });
   }
   return value; // Return the validated value
 }
