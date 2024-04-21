@@ -6,7 +6,7 @@ const options = {
   stripUnknown: true, // remove unknown keys
 };
 
-export const bookSchema = Joi.object({
+export const createBookSchema = Joi.object({
   name: Joi.string().required(),
   author: Joi.string().required(),
   pages: Joi.number().required(),
@@ -16,7 +16,7 @@ export const bookSchema = Joi.object({
 
 export const validateCreateBook = async (req, res, next) => {
   try {
-    await bookSchema.validateAsync(req.body, options);
+    await createBookSchema.validateAsync(req.body, options);
     return next();
   } catch (error) {
     return res.status(500).json({ error: mapJoiErrorsToObj(error.details) });
@@ -38,6 +38,7 @@ export const validateUpdateBook = async (req, res, next) => {
     await updateBookSchema.validateAsync(req.body, options);
     return next();
   } catch (error) {
+    console.log('🚀 ~ validateUpdateBook ~ error:', error);
     return res.status(500).json({ error: mapJoiErrorsToObj(error.details) });
   }
-}
+};

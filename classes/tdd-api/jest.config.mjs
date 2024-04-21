@@ -16,6 +16,9 @@ const config = {
   transform: {
     '.(js|jsx|ts|tsx)$': 'babel-jest',
   },
+  testMatch: [
+    '**/*.(test|unit-test|int-test|e2e-test).(js|jsx|ts|tsx)'
+  ],
 };
 
 export default config;
