@@ -5,6 +5,7 @@
 
 /** @type {import('jest').Config} */
 const config = {
+  rootDir: './',
   clearMocks: true,
   collectCoverage: true,
   coverageDirectory: 'coverage',
@@ -12,13 +13,15 @@ const config = {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/__mocks__/fileMock.js',
   },
-  // testEnvironment: 'jsdom',
+  testEnvironment: 'node',
+  // testEnvironment: '<rootDir>/test-environment.js',
   transform: {
     '.(js|jsx|ts|tsx)$': 'babel-jest',
   },
-  testMatch: [
-    '**/*.(test|unit-test|int-test|e2e-test).(js|jsx|ts|tsx)'
-  ],
+  testMatch: ['**/*.(test|unit-test|int-test|e2e-test).(js|jsx|ts|tsx)'],
+  // globalSetup: './jest.global-setup.js',
+  // globalTeardown: './jest.global-teardown.js',
+  verbose: true,
 };
 
 export default config;
