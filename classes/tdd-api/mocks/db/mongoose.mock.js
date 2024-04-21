@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import logger from '../../utils/logger';
+import logger from '../../utils/logger.js';
 let mongo = null;
 
 export const connectDB = async () => {
+  if (mongo) return;
   mongo = await MongoMemoryServer.create();
   const uri = mongo.getUri();
 
@@ -31,6 +32,7 @@ export const dropDB = async () => {
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
     await mongo.stop();
+    mongo = null;
   }
 };
 
