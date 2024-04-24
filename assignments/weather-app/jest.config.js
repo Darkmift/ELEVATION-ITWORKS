@@ -12,11 +12,12 @@ const config = {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/__mocks__/fileMock.js',
   },
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   transform: {
-    '.(js|jsx|ts|tsx)$': 'babel-jest',
+    '^.+\\.[t|j]sx?$': 'babel-jest',
   },
-  preset: '@shelf/jest-mongodb',
+  verbose: true,
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 };
 
 export default config;

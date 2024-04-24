@@ -1,0 +1,32 @@
+{
+  "name": "tdd-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "jest --testTimeout=10000 --verbose --runInBand --detectOpenHandles --forceExit --coverage --watchAll"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "joi": "^17.12.3",
+    "mongoose": "^8.3.2",
+    "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
+    "babel-jest": "^29.7.0",
+    "babel-plugin-inline-json-import": "^0.3.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-node": "^29.7.0",
+    "mongodb-memory-server": "^9.1.8",
+    "nodemon": "^3.1.0",
+    "supertest": "^6.3.4"
+  }
+}
