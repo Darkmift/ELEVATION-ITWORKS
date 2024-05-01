@@ -16,15 +16,15 @@ describe('BooksController', () => {
   //mock book service
 
   //mock response object
-  const res = {
-    status: jest.fn(() => res),
+  const mockResObj = {
+    status: jest.fn(() => mockResObj),
     json: jest.fn(),
   };
 
   //reset response object
   beforeEach(() => {
-    res.status.mockClear();
-    res.json.mockClear();
+    mockResObj.status.mockClear();
+    mockResObj.json.mockClear();
   });
 
   describe('getBooks', () => {
@@ -32,19 +32,19 @@ describe('BooksController', () => {
       const books = [{ name: 'Title', author: 'Author', pages: 100, price: 10, published: new Date() }];
       BooksService.getAll.mockResolvedValue(books);
 
-      await BooksController.getBooks(null, res);
+      await BooksController.getBooks(null, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith(books);
+      expect(mockResObj.status).toHaveBeenCalledWith(200);
+      expect(mockResObj.json).toHaveBeenCalledWith(books);
     });
 
     it('should return 500 if an error occurs', async () => {
       BooksService.getAll.mockRejectedValue(new Error('An error occurred'));
 
-      await BooksController.getBooks(null, res);
+      await BooksController.getBooks(null, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ error: 'An error occurred' });
+      expect(mockResObj.status).toHaveBeenCalledWith(500);
+      expect(mockResObj.json).toHaveBeenCalledWith({ error: 'An error occurred' });
     });
   });
   describe('getById', () => {
@@ -55,10 +55,10 @@ describe('BooksController', () => {
 
       const req = { params: { id: 1 } };
 
-      await BooksController.getBookById(req, res);
+      await BooksController.getBookById(req, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith(book);
+      expect(mockResObj.status).toHaveBeenCalledWith(200);
+      expect(mockResObj.json).toHaveBeenCalledWith(book);
     });
 
     it('should return 404 if book is not found', async () => {
@@ -66,10 +66,10 @@ describe('BooksController', () => {
 
       const req = { params: { id: 1 } };
 
-      await BooksController.getBookById(req, res);
+      await BooksController.getBookById(req, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Book not found' });
+      expect(mockResObj.status).toHaveBeenCalledWith(404);
+      expect(mockResObj.json).toHaveBeenCalledWith({ error: 'Book not found' });
     });
   });
 
@@ -82,10 +82,10 @@ describe('BooksController', () => {
 
       const req = { body: book };
 
-      await BooksController.createBook(req, res);
+      await BooksController.createBook(req, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(201);
-      expect(res.json).toHaveBeenCalledWith(newBook);
+      expect(mockResObj.status).toHaveBeenCalledWith(201);
+      expect(mockResObj.json).toHaveBeenCalledWith(newBook);
     });
 
     // create book - error thrown from service
@@ -93,10 +93,10 @@ describe('BooksController', () => {
       BooksService.create.mockRejectedValue(new Error('An error occurred'));
 
       // call the createBook method with a req body of {name:'foo'}
-      await BooksController.createBook({ body: { name: 'foo' } }, res);
+      await BooksController.createBook({ body: { name: 'foo' } }, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ error: 'An error occurred' });
+      expect(mockResObj.status).toHaveBeenCalledWith(500);
+      expect(mockResObj.json).toHaveBeenCalledWith({ error: 'An error occurred' });
     });
   });
 
@@ -108,10 +108,10 @@ describe('BooksController', () => {
 
       const req = { params: { id: 1 }, body: book };
 
-      await BooksController.updateBook(req, res);
+      await BooksController.updateBook(req, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith(book);
+      expect(mockResObj.status).toHaveBeenCalledWith(200);
+      expect(mockResObj.json).toHaveBeenCalledWith(book);
     });
 
     // update book - not found
@@ -120,20 +120,20 @@ describe('BooksController', () => {
 
       const req = { params: { id: 1 } };
 
-      await BooksController.updateBook(req, res);
+      await BooksController.updateBook(req, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Book not found' });
+      expect(mockResObj.status).toHaveBeenCalledWith(404);
+      expect(mockResObj.json).toHaveBeenCalledWith({ error: 'Book not found' });
     });
 
     // update book - error thrown from service
     it('should return 500 if an error occurs', async () => {
       BooksService.update.mockRejectedValue(new Error('An error occurred'));
 
-      await BooksController.updateBook({ params: { id: 1 }, body: {} }, res);
+      await BooksController.updateBook({ params: { id: 1 }, body: {} }, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ error: 'An error occurred' });
+      expect(mockResObj.status).toHaveBeenCalledWith(500);
+      expect(mockResObj.json).toHaveBeenCalledWith({ error: 'An error occurred' });
     });
   });
 
@@ -145,10 +145,10 @@ describe('BooksController', () => {
 
       const req = { params: { id: 1 } };
 
-      await BooksController.deleteBook(req, res);
+      await BooksController.deleteBook(req, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(204);
-      expect(res.json).toHaveBeenCalledWith();
+      expect(mockResObj.status).toHaveBeenCalledWith(204);
+      expect(mockResObj.json).toHaveBeenCalledWith();
     });
 
     // delete book - not found
@@ -157,20 +157,20 @@ describe('BooksController', () => {
 
       const req = { params: { id: 1 } };
 
-      await BooksController.deleteBook(req, res);
+      await BooksController.deleteBook(req, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Book not found' });
+      expect(mockResObj.status).toHaveBeenCalledWith(404);
+      expect(mockResObj.json).toHaveBeenCalledWith({ error: 'Book not found' });
     });
 
     // delete book - error thrown from service
     it('should return 500 if an error occurs', async () => {
       BooksService.remove.mockRejectedValue(new Error('An error occurred'));
 
-      await BooksController.deleteBook({ params: { id: 1 } }, res);
+      await BooksController.deleteBook({ params: { id: 1 } }, mockResObj);
 
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ error: 'An error occurred' });
+      expect(mockResObj.status).toHaveBeenCalledWith(500);
+      expect(mockResObj.json).toHaveBeenCalledWith({ error: 'An error occurred' });
     });
   });
 });

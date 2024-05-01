@@ -12,7 +12,7 @@ describe('BooksService', () => {
     });
   });
 
-  describe('getOne', () => {
+  describe('get all', () => {
     it('should call BookModel.find with the correct arguments', async () => {
       const findSpy = jest.spyOn(BookModel, 'find');
 
