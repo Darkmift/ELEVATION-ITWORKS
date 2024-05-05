@@ -1,0 +1,31 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 0;
+}
+
+.form {
+  background-color: antiquewhite;
+  border-radius: 5px;
+  padding: 2vmin;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input {
+  background-color: #ccc;
+  padding: 2vmin;
+  border-radius: 5px;
+}
+
+.show-red {
+}
+.show-green {
+}
