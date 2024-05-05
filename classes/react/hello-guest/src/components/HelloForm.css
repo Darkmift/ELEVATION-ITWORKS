@@ -1,0 +1,22 @@
+.hello-form {
+  background-color: antiquewhite;
+  border-radius: 5px;
+  padding: 2vmin;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hello-form input {
+  background-color: #ccc;
+  padding: 2vmin;
+  border-radius: 5px;
+}
+
+.hello-form button {
+  background-color: #333;
+  color: white;
+  padding: 2vmin;
+  border-radius: 5px;
+  cursor: pointer;
+}
