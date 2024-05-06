@@ -1,0 +1,41 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background-color: #cfe9d0;
+  border: none;
+  color: rgb(17, 15, 15);
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  height: 16vmin;
+  width: 16vmin;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.board-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.square {
+  font-size: 8vmin;
+  text-align: center;
+}
