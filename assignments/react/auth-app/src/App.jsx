@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './App.css';
 import { useEffect } from 'react';
 
-function Home() {
+function Home({ logout }) {
   const location = useLocation();
   const [name, setName] = useState('');
 
@@ -15,6 +16,7 @@ function Home() {
 
   return (
     <div>
+      <button onClick={logout}>logout</button>
       <h1>Welcome, {name}</h1>
     </div>
   );
@@ -27,7 +29,7 @@ const mockFetchUserService = (username, password) => {
   return Promise.reject('Invalid username or password');
 };
 
-function Login() {
+function Login({ login }) {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
@@ -40,6 +42,7 @@ function Login() {
     try {
       const result = await mockFetchUserService(username, password);
       if (result.name === 'bob') {
+        login();
         navigate('/home', { state: { name: result.name } });
       }
     } catch (error) {
@@ -61,13 +64,34 @@ function Login() {
   );
 }
 
+function FooBar({ element, isAuthenticated }) {
+  if (isAuthenticated) {
+    return element;
+  }
+
+  return <Navigate to="/login" />;
+}
+
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const loginHandler = () => {
+    setIsAuthenticated(true);
+  };
+
+  const logoutHandler = () => {
+    setIsAuthenticated(false);
+  };
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login login={loginHandler} />} />
+        <Route
+          path="/home"
+          element={<FooBar isAuthenticated={isAuthenticated} element={<Home logout={logoutHandler} />} />}
+        />
       </Routes>
     </BrowserRouter>
   );
