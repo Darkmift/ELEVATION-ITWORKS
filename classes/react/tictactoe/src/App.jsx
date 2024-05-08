@@ -1,32 +1,16 @@
 /* eslint-disable react/prop-types */
 import './App.css';
-import { useState } from 'react';
+import { GameContext } from './context';
+import { useContext } from 'react';
 
-function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-}
+function GameTitle() {
+  const gameCtx = useContext(GameContext);
 
-function GameTitle(props) {
-  const gameState = props.gameState;
-  const status = gameState.status;
-  const currentPlayer = gameState.currentPlayer;
-  const winner = gameState.winner;
+  const initialGameState = gameCtx.gameState;
+
+  const status = initialGameState.status;
+  const currentPlayer = initialGameState.currentPlayer;
+  const winner = initialGameState.winner;
 
   if (status === 'starting') {
     return <h1>Hello</h1>;
@@ -47,12 +31,15 @@ function GameTitle(props) {
 
 function Cell(props) {
   const { cell } = props;
+
+  const gameCtx = useContext(GameContext);
+
   const clickCellHandler = () => {
-    props.setCellValue(cell.i, cell.j);
+    gameCtx.makeMove(cell.i, cell.j);
   };
   return (
     <button className="square" onClick={clickCellHandler}>
-      {props.cell.value} {/* VALID RENDERS strng|number|React node (JSX) */}
+      {props.cell.value}{' '}
     </button>
   );
 }
@@ -62,55 +49,31 @@ function Row(props) {
     <div className="board-row">
       {props.row.map((cell, j) => {
         const cellData = { value: cell, i: props.rowId, j };
-        return <Cell setCellValue={props.setCellValue} key={`${props.rowId}${j}`} cell={cellData} />;
+        return <Cell key={`${props.rowId}${j}`} cell={cellData} />;
       })}
     </div>
   );
 }
 
-function Board(props) {
-  const board = props.gameState.board; // matrix
-  const currentPlayer = props.gameState.currentPlayer;
+function Board() {
+  const gameCtx = useContext(GameContext);
+  const initialGameState = gameCtx.gameState;
+  const board = initialGameState.board; // matrix
+
   return (
     <div className="board">
       {board.map((row, i) => (
-        <Row currentPlayer={currentPlayer} setCellValue={props.setCellValue} rowId={i} key={i} row={row} />
+        <Row rowId={i} key={i} row={row} />
       ))}
     </div>
   );
 }
 
 function App() {
-  const initialGameState = {
-    board: [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ],
-    currentPlayer: 'X',
-    winner: null,
-    status: 'starting',
-  };
-
-  const [gameState, setGameState] = useState(initialGameState);
-
-  const setCellValue = (i, j) => {
-    const newGameState = structuredClone(gameState);
-    newGameState.board[i][j] = newGameState.currentPlayer;
-    newGameState.currentPlayer = newGameState.currentPlayer === 'X' ? 'O' : 'X';
-    newGameState.status = 'playing';
-    const winner = calculateWinner(newGameState.board.flat()); // X|O|null
-    if (winner) {
-      newGameState.status = 'won';
-      newGameState.winner = winner;
-    }
-    setGameState(newGameState);
-  };
-
   return (
     <>
-      <GameTitle gameState={gameState} />
-      <Board setCellValue={setCellValue} gameState={gameState} />
+      <GameTitle />
+      <Board />
     </>
   );
 }
@@ -203,4 +166,3 @@ function MyCMP(props) {
   return <></>;
 }
 */
-
