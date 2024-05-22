@@ -14,3 +14,5 @@ export interface IBuild {
   errorsNumber: string
   warningsNumber: string
 }
+
+export type BuildCountWeekly = Record<string,number>

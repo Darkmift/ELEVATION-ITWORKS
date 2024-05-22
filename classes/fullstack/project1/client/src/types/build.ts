@@ -14,3 +14,5 @@ export type Build = {
   errorsNumber:string
   warningsNumber:string
 }
+
+export type BuildCountWeekly = Record<string,number>

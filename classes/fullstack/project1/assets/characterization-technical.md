@@ -20,11 +20,14 @@ enum ROLE {
   2
   3
 }
+
 enum STATUS {
   SUCCESS="success"
   FAILED="failed"
   CANCELED="canceled"
 }
+
+type BuildCountWeekly = Record<string,number>
 
 // server
 interface IAdminRegister {
