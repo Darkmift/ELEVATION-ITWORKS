@@ -1,0 +1,16 @@
+export enum STATUS {
+  SUCCESS = "success",
+  FAILED = "failed",
+  CANCELED = "canceled"
+}
+
+export type Build = {
+  buildId:string
+  status:STATUS
+  caption:string
+  command:string
+  startTime:string // a stringified date
+  endTime:string // a stringified date
+  errorsNumber:string
+  warningsNumber:string
+}
