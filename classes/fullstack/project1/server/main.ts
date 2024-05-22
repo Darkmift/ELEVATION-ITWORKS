@@ -1,9 +1,7 @@
-import env from '@/common/config';
-
-import logger from '@/common/utils/logger';
+import env from './config/index';
 import app from './src/index';
 
 app.listen(env.PORT, () => {
-  logger.info(`Environment: ${env.NODE_ENV}`);
-  logger.info(`Server is running on http://localhost:${env.PORT}`);
+  console.info(`Environment: ${env.NODE_ENV}`);
+  console.info(`Server is running on http://localhost:${env.PORT}`);
 });
