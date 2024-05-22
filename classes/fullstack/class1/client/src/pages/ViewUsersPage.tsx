@@ -4,7 +4,7 @@ import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
 import Filter from '../components/Filter';
 import SortSelect from '../components/SortSelect';
 import PaginationControls from '../components/PaginationControls';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../node_modules/react-i18next';
 import { initializeUsers } from '../service/users';
 import { useAppDispatch, useAppSelector } from '../store';
 import { setUsers, setUsersPaginated, deleteUserById as removeFromReduxUsers } from '../store/slices/users';

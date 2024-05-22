@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../node_modules/react-i18next';
 import { setAdmin } from '../store/slices/auth';
 import { useAppDispatch, useAppSelector } from '../store';
 import { login } from '../service/auth';

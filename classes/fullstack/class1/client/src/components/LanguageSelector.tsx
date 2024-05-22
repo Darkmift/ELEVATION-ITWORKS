@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../node_modules/react-i18next';
 import { FaGlobe } from 'react-icons/fa';
 
 const LanguageSelector: React.FC = () => {
