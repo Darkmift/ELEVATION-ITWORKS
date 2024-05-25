@@ -2,13 +2,13 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { Build, BuildCountWeekly } from "../../types"
 import { Pagination } from "../../types/pagination"
 
-type InitialState = {
+type BuildState = {
   buildsPage: Build[],
   pagination: Pagination,
   buildsPerWeek: BuildCountWeekly,
 }
 
-const initialState: InitialState = {
+const initialState: BuildState = {
   buildsPage: [],
   pagination: {
     page: 0,
@@ -22,7 +22,7 @@ const buildSlice = createSlice({
   name: 'build',
   initialState,
   reducers: {
-    setBuilds(state, action: PayloadAction<Omit<InitialState, 'buildsPerWeek'>>) {
+    setBuilds(state, action: PayloadAction<Omit<BuildState, 'buildsPerWeek'>>) {
       state.buildsPage = action.payload.buildsPage
       state.pagination = action.payload.pagination
     },
@@ -30,7 +30,6 @@ const buildSlice = createSlice({
       state.buildsPerWeek = action.payload
     }
   }
-  // setBuilds(data: { buildsPage: Build[], pagination: Pagination }): void
 })
 
 export const { setBuilds, setBuildsPerWeek } = buildSlice.actions

@@ -1,18 +1,25 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Admin } from "../../types"
+import { AdminRegister, Role } from "../../types"
 
-type InitialState = Pick<Admin, 'username'>
+type AuthState = {
+  admin: AdminRegister
+}
 
-const initialState: InitialState = {
-  username: ''
+const initialState: AuthState = {
+  admin: {
+    username: '',
+    firstName: '',
+    lastName: '',
+    role: Role.THREE,
+  }
 }
 
 const authSlice = createSlice({
-  name: 'admin',
+  name: 'auth',
   initialState,
   reducers: {
-    setAdmin(state, action: PayloadAction<Admin>) {
-      state.username = action.payload.username
+    setAdmin(state, action: PayloadAction<AdminRegister>) {
+      state.admin = action.payload
     }
   }
 })
