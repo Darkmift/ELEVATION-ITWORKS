@@ -1,6 +1,7 @@
-import 'tsconfig-paths/register';
-
+import * as config from './config'
+import { MongoMemoryServer } from 'mongodb-memory-server'
+import 'tsconfig-paths/register'
 
 export default async () => {
-  console.log('not implemented')
-};
+  global.__INMEMORY_MONGODB__ = await MongoMemoryServer.create()
+}
