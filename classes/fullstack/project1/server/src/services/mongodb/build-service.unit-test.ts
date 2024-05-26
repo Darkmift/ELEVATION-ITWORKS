@@ -152,7 +152,5 @@ async function createBuild(
 
   const result = await model.save()
 
-  console.log({ _id: result._id.toString(), ...build })
-
   return { _id: result._id.toString(), ...build }
 }
