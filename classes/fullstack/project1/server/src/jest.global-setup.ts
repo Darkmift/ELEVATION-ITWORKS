@@ -1,4 +1,3 @@
-import * as config from './config'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import 'tsconfig-paths/register'
 

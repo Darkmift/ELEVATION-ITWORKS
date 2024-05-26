@@ -1,7 +1,6 @@
-import * as config from './config'
-import { MongoMemoryServer } from 'mongodb-memory-server'
+import env from '../config'
 
-jest.mock('./config')
+jest.mock('../config')
 
 // @ts-expect-error
-config.MONGODB_URI = global.__INMEMORY_MONGODB__.getUri()
+env.MONGODB_URI = global.__INMEMORY_MONGODB__.getUri()

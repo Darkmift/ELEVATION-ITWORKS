@@ -1,4 +1,4 @@
-import { MONGODB_DATABASE_NAME, MONGODB_URI } from '../config'
+import env from '../../config'
 import mongoose, { connection } from 'mongoose'
 
 /**
@@ -15,8 +15,8 @@ export async function initMongodb(): Promise<void> {
     console.error('MongoDB connection error:', error)
   })
 
-  await mongoose.connect(MONGODB_URI, {
-    dbName: MONGODB_DATABASE_NAME,
+  await mongoose.connect(env.MONGODB_URI, {
+    dbName: env.MONGODB_DATABASE_NAME,
   })
 }
 
