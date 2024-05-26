@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { AdminRegister, Role } from "../../types"
 
 type AuthState = {
-  admin: AdminRegister
+  admin: Omit<AdminRegister, 'role'> & { role: Role | null }
 }
 
 const initialState: AuthState = {
@@ -10,7 +10,7 @@ const initialState: AuthState = {
     username: '',
     firstName: '',
     lastName: '',
-    role: Role.THREE,
+    role: null
   }
 }
 
@@ -19,6 +19,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setAdmin(state, action: PayloadAction<AdminRegister>) {
+      console.log(state.admin)
       state.admin = action.payload
     }
   }
