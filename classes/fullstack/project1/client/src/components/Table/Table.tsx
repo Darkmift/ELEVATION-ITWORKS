@@ -24,7 +24,6 @@ type RowNodeProps = {
 };
 
 const TR: React.FC<RowNodeProps> = ({ children, rowType, classNames }) => {
-  console.log('🚀 ~ {children, rowType, classNames}:', { children, rowType, classNames });
   let classes = classNames || '';
   classes += ' border-b border-solid border-gray-300 ';
   if (rowType === 'header') {
@@ -71,7 +70,6 @@ const svgCancelled = (
 );
 
 const TD: React.FC<ReactNodeProps & { status?: Build['status'] | '' }> = ({ children, classNames, status }) => {
-  console.log('🚀 ~ children:', { children, classNames });
   const mappingObj = {
     success: { svg: svgSuccess, color: '#00D2A2' },
     failed: { svg: svgFailed, color: '#E12828' },

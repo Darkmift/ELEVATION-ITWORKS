@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import './Graph.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
@@ -7,13 +6,13 @@ import Container from '../Container/Container';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-type GraphProps = {
+type GraphProps<T> = {
   options: ChartOptions;
   classNames?: string;
-  data: ChartData<Record<string, number>>;
+  data: ChartData<T>;
 };
 
-const Graph: React.FC<GraphProps> = ({ options, classNames, data }) => {
+const Graph = <T,>({ options, classNames = '', data }: GraphProps<T>) => {
   return (
     <Container className={`graph-container ${classNames}`}>
       <div className="vertical-text">Builds</div>

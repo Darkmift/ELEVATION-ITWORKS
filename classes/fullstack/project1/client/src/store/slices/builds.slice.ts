@@ -1,6 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { Build, BuildCountWeekly } from "../../types"
 import { Pagination } from "../../types/pagination"
+import { fetchBuildsPaginatedThunk } from "../thunks/builds"
+
+type FetchStatusState = {
+  loading: boolean,
+  error: string | null
+}
 
 type BuildState = {
   buildsPage: Build[],
@@ -8,7 +14,7 @@ type BuildState = {
   buildsPerWeek: BuildCountWeekly,
 }
 
-const initialState: BuildState = {
+const initialState: BuildState & FetchStatusState = {
   buildsPage: [],
   pagination: {
     page: 0,
@@ -16,6 +22,8 @@ const initialState: BuildState = {
     sort: ''
   },
   buildsPerWeek: {},
+  loading: false,
+  error: null
 }
 
 const buildSlice = createSlice({
@@ -29,6 +37,21 @@ const buildSlice = createSlice({
     setBuildsPerWeek(state, action: PayloadAction<BuildCountWeekly>) {
       state.buildsPerWeek = action.payload
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchBuildsPaginatedThunk.pending, (state) => {
+      state.loading = true
+    })
+      .addCase(fetchBuildsPaginatedThunk.fulfilled, (state, action) => {
+        state.buildsPage = action.payload
+        state.loading = false
+      })
+      .addCase(fetchBuildsPaginatedThunk.rejected, (state, action) => {
+        console.log("🚀 ~ builder.addCase ~ action:", action)
+        state.error = action.error.message || 'An error occurred'
+        state.loading = false
+      })
+
   }
 })
 
