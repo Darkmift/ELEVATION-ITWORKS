@@ -8,7 +8,7 @@ const adminSchema = new mongoose.Schema(
     role: {
       type: Number,
       required: true,
-      enum: [Role.ONE, Role.TWO, Role.THREE],
+      enum: [parseInt(Role.ONE), parseInt(Role.TWO), parseInt(Role.THREE)],
     },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
