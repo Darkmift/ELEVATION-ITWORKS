@@ -1,8 +1,17 @@
 import { FC } from 'react';
 
+export enum TitleSize {
+  H1 = 1,
+  H2 = 2,
+  H3 = 3,
+  H4 = 4,
+  H5 = 5,
+  H6 = 6,
+}
+
 export type TitleProps = {
   text: string;
-  size?: 1 | 2 | 3 | 4 | 5 | 6;
+  size?: TitleSize;
   className?: string;
 };
 

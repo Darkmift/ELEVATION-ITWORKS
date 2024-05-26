@@ -1,60 +1,60 @@
-export type ChartData = {
-    labels: string[];
-    datasets: {
-      label: string;
-      data: number[];
-      backgroundColor: string;
-      maxBarThickness: number;
-    }[];
+export type ChartData<T> = {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: T[];
+    backgroundColor: string;
+    maxBarThickness: number;
+  }[];
+};
+
+export type ChartOptions = {
+  responsive: boolean;
+  maintainAspectRatio: boolean;
+  plugins: {
+    legend: {
+      display: boolean;
+    };
+    tooltip: {
+      enabled: boolean;
+    };
+    title: {
+      display: boolean;
+    };
   };
-  
-  export type ChartOptions = {
-    responsive: boolean;
-    maintainAspectRatio: boolean;
-    plugins: {
-      legend: {
+  scales: {
+    x: {
+      display: boolean;
+      grid: {
         display: boolean;
       };
-      tooltip: {
-        enabled: boolean;
-      };
-      title: {
-        display: boolean;
+      ticks: {
+        color: string;
+        font: {
+          size: number;
+          family: string;
+        };
       };
     };
-    scales: {
-      x: {
-        display: boolean;
-        grid: {
-          display: boolean;
-        };
-        ticks: {
-          color: string;
-          font: {
-            size: number;
-            family: string;
-          };
-        };
+    y: {
+      beginAtZero: boolean;
+      grid: {
+        drawBorder: boolean;
+        color: string;
+        borderDash: number[];
+        drawTicks: boolean;
       };
-      y: {
-        beginAtZero: boolean;
-        grid: {
-          drawBorder: boolean;
-          color: string;
-          borderDash: number[];
-          drawTicks: boolean;
+      ticks: {
+        stepSize: number;
+        color: string;
+        font: {
+          size: number;
+          family: string;
         };
-        ticks: {
-          stepSize: number;
-          color: string;
-          font: {
-            size: number;
-            family: string;
-          };
-          padding: number;
-        };
-        border: {
-          color: string;
+        padding: number;
+      };
+      border: {
+        color: string;
       };
     };
   };
