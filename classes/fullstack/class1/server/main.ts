@@ -1,4 +1,4 @@
-import 'reflect-metadata'
+import "reflect-metadata"
 import 'dotenv/config'
 import express from 'express'
 import mainRouter from './src/main.routes'
