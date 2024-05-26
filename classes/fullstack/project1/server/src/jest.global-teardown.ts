@@ -1,5 +1,5 @@
-import 'tsconfig-paths/register';
+import 'tsconfig-paths/register'
 
 export default async () => {
-  console.log('not implemented')
-};
+  await global.__INMEMORY_MONGODB__.stop()
+}
