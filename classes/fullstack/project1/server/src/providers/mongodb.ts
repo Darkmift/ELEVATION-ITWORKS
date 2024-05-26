@@ -1,17 +1,17 @@
 import env from '../../config'
-import mongoose, { connection } from 'mongoose'
+import mongoose from 'mongoose'
 
 /**
  * Initialize MongoDB
  */
 export async function initMongodb(): Promise<void> {
   // Optional chaining: connection is not defined for in-memory mongodb
-  connection?.on('connected', () => {
+  mongoose.connection?.on('connected', () => {
     console.log('MongoDB connected')
   })
 
   // Optional chaining: connection is not defined for in-memory mongodb
-  connection?.on('error', (error) => {
+  mongoose.connection?.on('error', (error) => {
     console.error('MongoDB connection error:', error)
   })
 
