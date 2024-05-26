@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { Role, STATUS } from '../../../types'
+import { Role, STATUS } from '../../types'
 
 const adminSchema = new mongoose.Schema(
   {

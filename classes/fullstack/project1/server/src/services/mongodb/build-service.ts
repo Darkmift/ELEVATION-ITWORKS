@@ -1,12 +1,12 @@
-import { BuildCountWeekly, IBuild } from 'types'
+import { BuildCountWeekly, IBuild } from '@/types'
 import { BuildModel } from './models'
 import { formatISO } from 'date-fns'
 
 export const buildService = {
   getBuildsPaginated: async ({
-    page = 1,
-    limit = Number.MAX_SAFE_INTEGER,
-  }: Pagination = {}) => {
+    page,
+    limit,
+  }: Pagination) => {
     try {
       const builds = await BuildModel.find()
         .skip((page - 1) * limit)
@@ -66,11 +66,16 @@ export const buildService = {
       return {}
     }
   },
+  createBuild: async (buildData: IBuild) => { },
+  editBuild: async (buildId: string, buildData: IBuild) => { },
+  deleteBuild: async (buildId: string): Promise<boolean> => { return true },
 }
 
+
+
 export interface Pagination {
-  page?: number
-  limit?: number
+  page: number
+  limit: number
 }
 
 export interface IBuildWithId extends IBuild {

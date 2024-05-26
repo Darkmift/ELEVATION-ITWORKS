@@ -1,4 +1,4 @@
-import { IBuild, STATUS } from '../../../types'
+import { IBuild, STATUS } from '../../types'
 import { faker } from '@faker-js/faker'
 import { BuildModel } from './models'
 import { IBuildWithId, buildService } from './build-service'
@@ -23,11 +23,14 @@ describe('Services', () => {
           )
         })
 
+        // TOD make sense here @iliubinskii
+
         it('should return paginated builds', async () => {
           const result = await Promise.all([
-            buildService.getBuildsPaginated(),
+            buildService.getBuildsPaginated({ page: 1, limit: 1 }),
             buildService.getBuildsPaginated({
               limit: 2,
+              page: 1
             }),
             buildService.getBuildsPaginated({
               limit: 2,
