@@ -6,12 +6,12 @@
   "type": "module",
   "scripts": {
     "ts:check": "tsc --noEmit",
-    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit",
+    "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit",
     "build": "rimraf build && tsc",
-    "start": "NODE_ENV=production npm run build && tsx build/src/index.js",
+    "start": "cross-env NODE_ENV=production npm run build && tsx build/src/index.js",
     "lint": "eslint --fix --config ./eslint.config.js --debug",
     "format": "prettier --write 'src/**/*.{ts,js,json}' 'tests/**/*.{ts,js,json}'",
-    "start:dev": "NODE_ENV=development tsx watch --clear-screen=false main.ts",
+    "start:dev": "cross-env NODE_ENV=development tsx watch --clear-screen=false main.ts",
     "prepare": "husky",
     "precommit": "lint-staged && npm run lint",
     "prepush": "npm run test"
@@ -49,6 +49,7 @@
     "@types/swagger-ui-express": "^4.1.6",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "cross-env": "^7.0.3",
     "drizzle-kit": "^0.20.17",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
