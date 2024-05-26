@@ -1,0 +1,22 @@
+.graph-container {
+    position: relative;
+    height: 80vh;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .graph-container .vertical-text {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: rotate(-90deg);
+    transform-origin: left top 0;
+    font-size: 12px;
+    font-family: 'Gordita', sans-serif;
+    color: rgba(7, 17, 44, 0.6);
+  }
+  
