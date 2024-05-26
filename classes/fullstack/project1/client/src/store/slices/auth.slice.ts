@@ -19,7 +19,6 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setAdmin(state, action: PayloadAction<AdminRegister>) {
-      console.log(state.admin)
       state.admin = action.payload
     }
   }
