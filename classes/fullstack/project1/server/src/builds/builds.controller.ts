@@ -1,7 +1,8 @@
-import { IBuild } from '@/types'
 import express from 'express'
 import buildSchema from './joi/schemas'
-import buildService from '../services/mongodb/build-service'
+import { buildService } from '../services/mongodb/build-service'
+import { IBuild } from '@/types/build'
+
 
 export const getBuildsPaginated = async (
   req: express.Request,
@@ -12,7 +13,7 @@ export const getBuildsPaginated = async (
     if (!page || !limit) {
       return res.status(400).json({ message: 'Invalid page or limit' })
     }
-    const builds = await buildService.getBuildsPaginated(+page, +limit)
+    const builds = await buildService.getBuildsPaginated({ page: +page, limit: +limit })
     res.status(201).json(builds)
   } catch (error) {
     console.log(error)
