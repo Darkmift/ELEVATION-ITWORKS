@@ -6,65 +6,23 @@ export const buildService = {
   getBuildsPaginated: async ({
     page = 1,
     limit = Number.MAX_SAFE_INTEGER,
-  }: Pagination = {}): Promise<IBuildWithId[]> => {
+  }: Pagination = {}) => {
     try {
-      const raw = await BuildModel.find()
+      const builds = await BuildModel.find()
         .skip((page - 1) * limit)
         .limit(limit)
 
-      return raw.map((build) => {
-        const {
-          _id,
-          endTime,
-          startTime,
-          errorsNumber,
-          warningsNumber,
-          ...rest
-        } = build.toObject()
-
-        return {
-          _id: _id.toString(),
-          startTime: formatISO(startTime),
-          endTime: formatISO(endTime),
-          // TODO: Consider correcting IBuild.errorsNumber type to number
-          errorsNumber: errorsNumber.toString(),
-          // TODO: Consider correcting IBuild.warningsNumber type to number
-          warningsNumber: warningsNumber.toString(),
-          ...rest,
-        }
-      })
+      return builds
     } catch (error) {
       console.error(error)
       return []
     }
   },
-  getBuildById: async (buildId: string): Promise<IBuildWithId | null> => {
+  getBuildById: async (buildId: string) => {
     try {
       const build = await BuildModel.findById(buildId)
 
-      if (build) {
-        const {
-          _id,
-          endTime,
-          startTime,
-          errorsNumber,
-          warningsNumber,
-          ...rest
-        } = build.toObject()
-
-        return {
-          _id: _id.toString(),
-          startTime: formatISO(startTime),
-          endTime: formatISO(endTime),
-          // TODO: Consider correcting IBuild.errorsNumber type to number
-          errorsNumber: errorsNumber.toString(),
-          // TODO: Consider correcting IBuild.warningsNumber type to number
-          warningsNumber: warningsNumber.toString(),
-          ...rest,
-        }
-      }
-
-      return null
+      return build
     } catch (error) {
       console.error(error)
       return null

@@ -59,7 +59,25 @@ describe('Services', () => {
             assertDefined(build)._id,
           )
 
-          expect(result).toEqual(build)
+          const { _id, endTime, startTime, ...rest } =
+            assertNotNull(result).toObject()
+
+          const {
+            errorsNumber: buildErrorsNumber,
+            warningsNumber: buildWarningsNumber,
+            ...buildRest
+          } = assertDefined(build)
+
+          expect({
+            _id: _id.toString(),
+            endTime: formatISO(endTime),
+            startTime: formatISO(startTime),
+            ...rest,
+          }).toEqual({
+            errorsNumber: Number(buildErrorsNumber),
+            warningsNumber: Number(buildWarningsNumber),
+            ...buildRest,
+          })
         })
 
         it('should return null', async () => {
@@ -99,6 +117,18 @@ describe('Services', () => {
 
 function assertDefined<T>(value: T | undefined): T {
   if (value === undefined) throw new Error('Value is undefined')
+
+  return value
+}
+
+/**
+ * Asserts that a value is not null.
+ * @param value - The value to check.
+ * @returns The value if it is not null.
+ * @throws An error if the value is null.
+ */
+function assertNotNull<T>(value: T | null): T {
+  if (value === null) throw new Error('Value is null')
 
   return value
 }

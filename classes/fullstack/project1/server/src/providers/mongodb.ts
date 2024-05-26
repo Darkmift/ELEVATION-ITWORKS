@@ -5,11 +5,13 @@ import mongoose, { connection } from 'mongoose'
  * Initialize MongoDB
  */
 export async function initMongodb(): Promise<void> {
-  connection.on('connected', () => {
+  // Optional chaining: connection is not defined for in-memory mongodb
+  connection?.on('connected', () => {
     console.log('MongoDB connected')
   })
 
-  connection.on('error', (error) => {
+  // Optional chaining: connection is not defined for in-memory mongodb
+  connection?.on('error', (error) => {
     console.error('MongoDB connection error:', error)
   })
 
