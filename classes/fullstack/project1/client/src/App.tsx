@@ -3,10 +3,11 @@ import './App.css';
 import Graph from './components/Graph/Graph';
 import Title, { TitleSize } from './components/Title/Title';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { setBuilds, setBuildsPerWeek } from './store/slices/builds.slice';
+import { setBuildsPerWeek } from './store/slices/builds.slice';
 import { ChartData, ChartOptions } from 'chart.js';
 import { TBody, TD, TH, THeader, TR, Table } from './components/Table/Table';
-import { STATUS } from './types';
+
+import { fetchBuildsPaginatedThunk } from './store/thunks/builds';
 
 function App() {
   const options: ChartOptions = {
@@ -64,6 +65,13 @@ function App() {
   const dispatch = useAppDispatch();
   const buildsPerWeek = useAppSelector((state) => state.buildReducer.buildsPerWeek);
   const builds = useAppSelector((state) => state.buildReducer.buildsPage);
+  const isLoading = useAppSelector((state) => state.buildReducer.loading);
+  const errorBuildFetch = useAppSelector((state) => state.buildReducer.error);
+
+  const getPagintedBuilds = (page: number, limit: number, sort: 'asc' | 'desc') => {
+    dispatch(fetchBuildsPaginatedThunk({ page, limit, sort }));
+  };
+
   useEffect(() => {
     dispatch(
       setBuildsPerWeek({
@@ -77,49 +85,18 @@ function App() {
       })
     );
 
-    dispatch(
-      setBuilds({
-        buildsPage: [
-          {
-            buildId: '2024.05.02.1',
-            status: STATUS.SUCCESS,
-            caption: 'BuildToolCopmile',
-            command: 'npm run build',
-            startTime: '2024-05-02T12:00:00',
-            endTime: '2024-05-02T12:30:00',
-            errorsNumber: '0',
-            warningsNumber: '0',
-          },
-          {
-            buildId: '2024.05.02.2',
-            status: STATUS.SUCCESS,
-            caption: 'BuildToolCopmile',
-            command: 'npm run build',
-            startTime: '2024-05-02T12:00:00',
-            endTime: '2024-05-02T12:30:00',
-            errorsNumber: '0',
-            warningsNumber: '0',
-          },
-          {
-            buildId: '2024.05.02.3',
-            status: STATUS.SUCCESS,
-            caption: 'BuildToolCopmile',
-            command: 'npm run build',
-            startTime: '2024-05-02T12:00:00',
-            endTime: '2024-05-02T12:30:00',
-            errorsNumber: '0',
-            warningsNumber: '0',
-          },
-        ],
-        pagination: {
-          page: 1,
-          limit: 10,
-          sort: 'asc',
-        },
-      })
-    );
+    getPagintedBuilds(1, 10, 'asc');
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (errorBuildFetch) {
+    return <div>Error fetching builds: {errorBuildFetch}</div>;
+  }
 
   const data: ChartData = {
     labels: Object.keys(buildsPerWeek),
