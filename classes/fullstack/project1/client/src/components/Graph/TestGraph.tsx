@@ -22,7 +22,7 @@ const TestGraph: React.FC = () => {
 
   return (
     <div>
-      <Graph />
+      {/* <Graph /> */}
     </div>
   );
 };
