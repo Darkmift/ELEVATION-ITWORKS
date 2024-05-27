@@ -37,3 +37,6 @@ const buildSchema = new mongoose.Schema(
 )
 
 export const BuildModel = mongoose.model('Build', buildSchema)
+
+
+//make an admin object to save

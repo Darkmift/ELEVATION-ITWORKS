@@ -1,3 +1,4 @@
+import { IAdmin } from '@/types'
 import { z } from 'zod'
 
 const buildSchema = z.object({
@@ -14,3 +15,9 @@ const buildSchema = z.object({
 })
 
 export default buildSchema
+
+// todo check interface enforcement
+export const adminLoginSchema = z.object({
+  username: z.string(),
+  password: z.string(),
+})

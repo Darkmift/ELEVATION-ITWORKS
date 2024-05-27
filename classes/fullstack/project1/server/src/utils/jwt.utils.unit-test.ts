@@ -7,7 +7,7 @@ describe('generateToken', () => {
     const username = 'admin';
     const role = 1;
 
-    const token = generateToken(id, username, role);
+    const token = generateToken({id, username, role});
 
     expect(typeof token).toBe('string');
     expect(token.length).toBeGreaterThan(0);
