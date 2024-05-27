@@ -30,11 +30,11 @@ const buildSlice = createSlice({
   name: 'build',
   initialState,
   reducers: {
-    setBuilds(state, action: PayloadAction<Omit<BuildState, 'buildsPerWeek'>>) {
+    setBuilds(state: BuildState, action: PayloadAction<Omit<BuildState, 'buildsPerWeek'>>) {
       state.buildsPage = action.payload.buildsPage
       state.pagination = action.payload.pagination
     },
-    setBuildsPerWeek(state, action: PayloadAction<BuildCountWeekly>) {
+    setBuildsPerWeek(state: BuildState, action: PayloadAction<BuildCountWeekly>) {
       state.buildsPerWeek = action.payload
     }
   },
@@ -51,7 +51,6 @@ const buildSlice = createSlice({
         state.error = action.error.message || 'An error occurred'
         state.loading = false
       })
-
   }
 })
 
