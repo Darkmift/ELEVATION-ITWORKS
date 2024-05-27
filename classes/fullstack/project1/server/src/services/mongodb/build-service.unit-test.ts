@@ -23,14 +23,14 @@ describe('Services', () => {
           )
         })
 
-        // TOD make sense here @iliubinskii
-
+        // This is composite test that checks that the page of 6 builds is equal to
+        // the sum of the 3 pagess of 2 builds each.
         it('should return paginated builds', async () => {
           const result = await Promise.all([
-            buildService.getBuildsPaginated({ page: 1, limit: 1 }),
+            buildService.getBuildsPaginated({ page: 1, limit: 6 }),
             buildService.getBuildsPaginated({
               limit: 2,
-              page: 1
+              page: 1,
             }),
             buildService.getBuildsPaginated({
               limit: 2,
