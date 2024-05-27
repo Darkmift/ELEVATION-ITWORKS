@@ -6,8 +6,9 @@ import { useAppDispatch, useAppSelector } from './store/hooks';
 import { setBuildsPerWeek } from './store/slices/builds.slice';
 import { ChartData, ChartOptions } from 'chart.js';
 import { TBody, TD, TH, THeader, TR, Table } from './components/Table/Table';
-
+import React from 'react';
 import { fetchBuildsPaginatedThunk } from './store/thunks/builds';
+import Pagination from './components/Pagination/Pagination';
 
 function App() {
   const options: ChartOptions = {
@@ -72,6 +73,15 @@ function App() {
     dispatch(fetchBuildsPaginatedThunk({ page, limit, sort }));
   };
 
+  const [page, setPage] = React.useState(1);
+
+  const loadPage = async (nextPage: number) => {
+    getPagintedBuilds(nextPage, 10, 'asc');
+    setPage(nextPage);
+  };
+
+  const pagesCount = Math.ceil(builds.totalCount / 10);
+
   useEffect(() => {
     dispatch(
       setBuildsPerWeek({
@@ -85,7 +95,7 @@ function App() {
       })
     );
 
-    getPagintedBuilds(1, 10, 'asc');
+    getPagintedBuilds(page, 10, 'asc');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -119,6 +129,9 @@ function App() {
     <>
       <Title text="Vite + React" size={TitleSize.H1} className="text-nowrap" />
       <Graph data={data} options={options} classNames="h-[300px] mb-5" />
+      <div className="my-5">
+        <Pagination total={pagesCount} page={page} onClick={loadPage} />
+      </div>
       <Table>
         <THeader>
           <TR rowType="header">
@@ -147,6 +160,9 @@ function App() {
           })}
         </TBody>
       </Table>
+      <div className="mt-5">
+        <Pagination total={pagesCount} page={page} onClick={loadPage} />
+      </div>
     </>
   );
 }
