@@ -4,6 +4,7 @@ import { getBuildById } from "../http";
 import { Build as BuildType} from "../types";
 import { TBody, TD, TH, THeader, TR, Table } from "../components/Table/Table";
 import Error from "./Error";
+import Title from "../components/Title/Title";
 
 function Build() {
   const { id } = useParams();
@@ -25,6 +26,7 @@ function Build() {
 
   return (
     <div>
+      <Title size={2} text={`Build - ${currentBuild.buildId}`} />
       <Table>
         <THeader>
           <TR rowType="header">

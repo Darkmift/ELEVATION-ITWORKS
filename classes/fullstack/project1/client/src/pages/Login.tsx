@@ -35,18 +35,21 @@ const LoginForm: React.FC = () => {
       <form onSubmit={handleSubmit} className="bg-white dark:bg-darkCard p-6 rounded shadow-md w-80">
         <h2 className="text-2xl mb-4 text-gray-900 dark:text-darkText">Login</h2>
         <div className="mb-4">
-          <label className="block text-gray-700 dark:text-darkText">username</label>
+          <label htmlFor='username' className="block text-gray-700 dark:text-darkText">username</label>
           <input
-          
+            data-testid='username'
+            name='username'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className="p-1 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
-          />
+            />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 dark:text-darkText">password</label>
+          <label htmlFor='password' className="block text-gray-700 dark:text-darkText">password</label>
           <input
+            data-testid='password'
+            name='password'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
