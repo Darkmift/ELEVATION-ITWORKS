@@ -88,5 +88,12 @@
       "type": "node-terminal",
       "cwd": "${workspaceFolder}/classes/tdd-api"
     }
+    {
+      "command": "npm run start:dev",
+      "name": "Project1 Run Server",
+      "request": "launch",
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}/classes/fullstack/project1/server"
+    }
   ]
 }
