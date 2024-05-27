@@ -1,4 +1,5 @@
-import React from 'react';
+import { FC, ReactNode } from 'react';
+import './Container.css';
 
 export type PaginationProps = {
   total: number;
@@ -6,7 +7,7 @@ export type PaginationProps = {
   onClick: (page: number) => void;
 };
 
-const Pagination: React.FC<PaginationProps> = ({ total, page, onClick }) => {
+const Pagination: FC<PaginationProps> = ({ total, page, onClick }) => {
   const pageNumbers = Array.from({ length: total }, (_, i) => i + 1);
 
   return (
