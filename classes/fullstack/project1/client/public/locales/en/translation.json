@@ -1,0 +1,13 @@
+{
+  "title": "Vite + React",
+  "loading": "Loading...",
+  "errorFetchingBuilds": "Error fetching builds: {{error}}",
+  "status": "Status",
+  "buildId": "Build ID",
+  "caption": "Caption",
+  "command": "Command",
+  "startTime": "Start Time",
+  "endTime": "End Time",
+  "errorsNumber": "Errors Number",
+  "warningsNumber": "Warnings Number"
+}
