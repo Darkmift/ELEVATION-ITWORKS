@@ -1,26 +1,22 @@
-import axios from 'axios';
-import { Pagination } from '../types/pagination';
-import { Build } from '../types';
+import axios from "axios";
+import { Pagination } from "../types/pagination";
+import { Build } from "../types";
 const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 
 const axiosInstance = axios.create({
-  baseURL: BASE_API_URL,
+  baseURL: BASE_API_URL
 });
 
-export const getBuildsPaginated = async ({
-  page,
-  limit,
-  sort,
-}: Pagination): Promise<{ builds: Build[]; totalCount: number }> => {
+export const getBuildsPaginated = async ({ page, limit, sort }: Pagination): Promise<Build[]> => {
+
   try {
-    const response = await axiosInstance.get<{ builds: Build[]; totalCount: number }>(
-      `/builds?page=${page}&limit=${limit}&sort=${sort}`
-    );
+    const response = await axiosInstance.get<Build[]>(`/builds?page=${page}&limit=${limit}&sort=${sort}`);
     return response.data;
   } catch (error) {
     console.error(error);
-    return { builds: [], totalCount: 0 };
+    return []
   }
-};
+
+}
 
 export default axiosInstance;

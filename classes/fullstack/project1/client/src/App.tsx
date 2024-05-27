@@ -111,7 +111,7 @@ function App() {
   };
   // const [count, setCount] = useState(0)
 
-  if (builds.builds.length === 0) {
+  if (builds.length === 0) {
     return <div>Loading...</div>;
   }
 
@@ -122,13 +122,13 @@ function App() {
       <Table>
         <THeader>
           <TR rowType="header">
-            {Object.keys(builds.builds[0]).map((key) => {
+            {Object.keys(builds[0]).map((key) => {
               return <TH key={key}>{key}</TH>;
             })}
           </TR>
         </THeader>
         <TBody>
-          {builds.builds.map((build) => {
+          {builds.map((build) => {
             return (
               <TR rowType={build.status} key={build.buildId}>
                 {Object.keys(build).map((key) => {
