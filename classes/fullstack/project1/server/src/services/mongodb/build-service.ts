@@ -5,14 +5,19 @@ import { formatISO } from 'date-fns'
 export const buildService = {
   getBuildsPaginated: async ({ page, limit }: Pagination) => {
     try {
-      const [builds, totalCount] = await Promise.all([
-        BuildModel.find()
-          .skip((page - 1) * limit)
-          .limit(limit),
-        BuildModel.countDocuments(),
+      const result = await BuildModel.aggregate([
+        {
+          $facet: {
+            builds: [{ $skip: (page - 1) * limit }, { $limit: limit }],
+            totalCount: [{ $count: 'count' }],
+          },
+        },
       ])
 
-      return { builds, totalCount }
+      return {
+        builds: result[0].builds,
+        totalCount: result[0].totalCount[0].count,
+      }
     } catch (error) {
       console.error(error)
       return {
