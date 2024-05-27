@@ -49,7 +49,7 @@ const LanguageSelector: React.FC = () => {
               English
             </button>
             <button
-              onClick={() => changeLanguage('ru')}
+              onClick={() => changeLanguage('he')}
               className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-darkText hover:bg-gray-200 dark:hover:bg-gray-600"
               role="menuitem"
             >
