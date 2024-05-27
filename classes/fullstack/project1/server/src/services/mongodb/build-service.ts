@@ -9,7 +9,7 @@ export const buildService = {
         BuildModel.find()
           .skip((page - 1) * limit)
           .limit(limit),
-        await BuildModel.countDocuments(),
+        BuildModel.countDocuments(),
       ])
 
       return { builds, totalCount }
