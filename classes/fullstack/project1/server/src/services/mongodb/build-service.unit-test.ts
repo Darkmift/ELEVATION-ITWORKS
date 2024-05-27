@@ -42,11 +42,19 @@ describe('Services', () => {
             }),
           ])
 
-          expect(result[0].length).toEqual(6)
-          expect(result[1].length).toEqual(2)
-          expect(result[2].length).toEqual(2)
-          expect(result[3].length).toEqual(2)
-          expect(result[0]).toEqual([...result[1], ...result[2], ...result[3]])
+          expect(result[0].totalCount).toEqual(6)
+          expect(result[1].totalCount).toEqual(6)
+          expect(result[2].totalCount).toEqual(6)
+          expect(result[3].totalCount).toEqual(6)
+          expect(result[0].builds.length).toEqual(6)
+          expect(result[1].builds.length).toEqual(2)
+          expect(result[2].builds.length).toEqual(2)
+          expect(result[3].builds.length).toEqual(2)
+          expect(result[0].builds).toEqual([
+            ...result[1].builds,
+            ...result[2].builds,
+            ...result[3].builds,
+          ])
         })
       })
 

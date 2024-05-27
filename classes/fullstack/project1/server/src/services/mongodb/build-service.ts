@@ -3,19 +3,22 @@ import { BuildModel } from './models'
 import { formatISO } from 'date-fns'
 
 export const buildService = {
-  getBuildsPaginated: async ({
-    page,
-    limit,
-  }: Pagination) => {
+  getBuildsPaginated: async ({ page, limit }: Pagination) => {
     try {
-      const builds = await BuildModel.find()
-        .skip((page - 1) * limit)
-        .limit(limit)
+      const [builds, totalCount] = await Promise.all([
+        BuildModel.find()
+          .skip((page - 1) * limit)
+          .limit(limit),
+        await BuildModel.countDocuments(),
+      ])
 
-      return builds
+      return { builds, totalCount }
     } catch (error) {
       console.error(error)
-      return []
+      return {
+        builds: [],
+        totalCount: 0,
+      }
     }
   },
   getBuildById: async (buildId: string) => {
@@ -66,12 +69,12 @@ export const buildService = {
       return {}
     }
   },
-  createBuild: async (buildData: IBuild) => { },
-  editBuild: async (buildId: string, buildData: IBuild) => { },
-  deleteBuild: async (buildId: string): Promise<boolean> => { return true },
+  createBuild: async (buildData: IBuild) => {},
+  editBuild: async (buildId: string, buildData: IBuild) => {},
+  deleteBuild: async (buildId: string): Promise<boolean> => {
+    return true
+  },
 }
-
-
 
 export interface Pagination {
   page: number
