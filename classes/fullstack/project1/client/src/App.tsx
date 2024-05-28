@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from './store/hooks';
 import { TBody, TD, TH, THeader, TR, Table } from './components/Table/Table';
 
 import { fetchBuildsPaginatedThunk } from './store/thunks/builds';
+import LanguageSelector from './components/LanguageSelector/LanguageSelector';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -73,6 +74,7 @@ function App() {
         
   return (
     <>
+      <LanguageSelector />
       <Title text="Vite + React" size={TitleSize.H1} className="text-nowrap" />
       <GroupedBuildsGraph />
       <Table>
