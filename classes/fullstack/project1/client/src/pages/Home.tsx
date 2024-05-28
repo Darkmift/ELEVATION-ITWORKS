@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import '../App.css';
 import Graph from '../components/Graph/Graph';
 import Title, { TitleSize } from '../components/Title/Title';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
@@ -10,8 +9,8 @@ import { TBody, TD, TH, THeader, TR, Table } from '../components/Table/Table';
 import { fetchBuildsPaginatedThunk } from '../store/thunks/builds';
 import { Link } from 'react-router-dom';
 
-function Home() {
-  const options: ChartOptions = {
+function chartDataProvider(rowData: Record<string, number>) {
+  const options: ChartOptions<'bar'> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -42,9 +41,9 @@ function Home() {
       y: {
         beginAtZero: true,
         grid: {
-          drawBorder: false,
+          // drawBorder: false,
           color: 'rgba(210, 212, 218, 1)',
-          borderDash: [8, 4],
+          // borderDash: [8, 4],
           drawTicks: false,
         },
         ticks: {
@@ -63,11 +62,25 @@ function Home() {
     },
   };
 
+  const data: ChartData<'bar', number[], string> = {
+    labels: Object.keys(rowData),
+    datasets: [
+      {
+        label: 'Total Builds',
+        data: Object.values(rowData),
+        backgroundColor: 'rgba(53, 204, 208, 1)',
+        maxBarThickness: 56,
+      },
+    ],
+  };
+
+  return { options, data };
+}
+
+function Home() {
   const dispatch = useAppDispatch();
   const buildsPerWeek = useAppSelector((state) => state.buildReducer.buildsPerWeek);
   const builds = useAppSelector((state) => state.buildReducer.buildsPage);
-
-
   const isLoading = useAppSelector((state) => state.buildReducer.loading);
   const errorBuildFetch = useAppSelector((state) => state.buildReducer.error);
 
@@ -89,6 +102,7 @@ function Home() {
     );
 
     getPagintedBuilds(1, 10, 'asc');
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -100,22 +114,11 @@ function Home() {
     return <div>Error fetching builds: {errorBuildFetch}</div>;
   }
 
-  const data: ChartData = {
-    labels: Object.keys(buildsPerWeek),
-    datasets: [
-      {
-        label: 'Total Builds',
-        data: Object.values(buildsPerWeek),
-        backgroundColor: 'rgba(53, 204, 208, 1)',
-        maxBarThickness: 56,
-      },
-    ],
-  };
-  // const [count, setCount] = useState(0)
-
   if (builds.length === 0) {
     return <div>Loading...</div>;
   }
+
+  const { data, options } = chartDataProvider(buildsPerWeek);
 
   return (
     <>
@@ -127,7 +130,7 @@ function Home() {
             {Object.keys(builds[0]).map((key) => {
               return <TH key={key}>{key}</TH>;
             })}
-          <TH>Edit</TH>
+            <TH>Edit</TH>
           </TR>
         </THeader>
         <TBody>
@@ -147,9 +150,9 @@ function Home() {
                 })}
                 <TD classNames='relative'>
                   <Link to={`/home/${build.buildId}`}>  
-                  <span className="bg-[url('./assets/uil-edit-alt.svg')] bg-repeat bg-contain w-[20px] h-[20px] block absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]" />
+                    <span className="bg-[url('./assets/uil-edit-alt.svg')] bg-repeat bg-contain w-[20px] h-[20px] block absolute top- [50%] left-[50%] -translate-x-[50%] -translate-y-[50%]" />
                   </Link>
-                  </TD>
+                </TD>
               </TR>
             );
           })}
@@ -159,4 +162,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Home
