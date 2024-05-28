@@ -38,7 +38,7 @@ type ReactNodeProps = {
 
 const Table: React.FC<ReactNodeProps> = ({ children, classNames }) => {
   let classes = classNames || '';
-  classes += ' text-left font-gordita overflow-x-auto w-full overflow-x-hidden md:overflow-x-auto';
+  classes += ' text-left font-gordita overflow-x-auto overflow-x-hidden md:overflow-x-auto';
   return <table className={classes}>{children}</table>;
 };
 
@@ -80,10 +80,12 @@ const TD: React.FC<ReactNodeProps & { status?: Build['status'] | '' }> = ({ chil
   let imgNode = <></>;
   let classes = classNames || '';
 
+  classes += ' text-[12px] h-[40px]';
+
   const displayDataMap = mappingObj[status?.toString().toLowerCase() as keyof typeof mappingObj];
 
   if (displayDataMap) {
-    classes += ` text-[12px] border-l-2 border-l-[${displayDataMap.color}] flex h-[40px] items-center`;
+    classes += ` border-l-2 border-l-[${displayDataMap.color}] flex items-center`;
     imgNode = displayDataMap.svg;
   }
 
