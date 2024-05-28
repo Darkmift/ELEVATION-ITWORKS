@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { fetchBuildsPaginatedThunk } from '../../store/thunks/builds';
 import { TBody, TD, TH, THeader, TR, Table } from '../Table/Table';
@@ -11,10 +10,7 @@ export default function BuildsTable() {
     dispatch(fetchBuildsPaginatedThunk({ page, limit, sort }));
   };
 
-  useEffect(() => {
-    getPagintedBuilds(1, 10, 'asc');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  console.log(getPagintedBuilds)
 
   const tableColumns = [
     {

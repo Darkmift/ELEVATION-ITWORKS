@@ -80,6 +80,7 @@ export default function GroupedBuildsGraph() {
 
   useEffect(() => {
     dispatch(fetchBuildGroupedByWeekThunk());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { data, options } = chartDataProvider(buildsPerWeek);

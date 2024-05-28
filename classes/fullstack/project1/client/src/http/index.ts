@@ -15,8 +15,6 @@ export const getBuildsPaginated = async ({ page, limit, sort }: Pagination): Pro
 
 //login
 export const attemptLogin = async (username: string, password: string): Promise<Admin> => {
-  console.log('🚀 ~ attemptLogin ~ password:', password);
-  console.log('🚀 ~ attemptLogin ~ username:', username);
   const response = await axiosInstance.post<Admin>('/auth/login', { username, password });
   return response.data;
 };
