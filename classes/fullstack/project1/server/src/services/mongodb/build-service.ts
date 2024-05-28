@@ -1,21 +1,28 @@
 import { BuildCountWeekly, IBuild } from '@/types'
 import { BuildModel } from './models'
-import { formatISO } from 'date-fns'
 
 export const buildService = {
-  getBuildsPaginated: async ({
-    page,
-    limit,
-  }: Pagination) => {
+  getBuildsPaginated: async ({ page, limit }: Pagination) => {
     try {
-      const builds = await BuildModel.find()
-        .skip((page - 1) * limit)
-        .limit(limit)
+      const result = await BuildModel.aggregate([
+        {
+          $facet: {
+            builds: [{ $skip: (page - 1) * limit }, { $limit: limit }],
+            totalCount: [{ $count: 'count' }],
+          },
+        },
+      ])
 
-      return builds
+      return {
+        builds: result[0].builds,
+        totalCount: result[0].totalCount[0].count,
+      }
     } catch (error) {
       console.error(error)
-      return []
+      return {
+        builds: [],
+        totalCount: 0,
+      }
     }
   },
   getBuildById: async (buildId: string) => {
@@ -66,12 +73,12 @@ export const buildService = {
       return {}
     }
   },
-  createBuild: async (buildData: IBuild) => { },
-  editBuild: async (buildId: string, buildData: IBuild) => { },
-  deleteBuild: async (buildId: string): Promise<boolean> => { return true },
+  createBuild: async (buildData: IBuild) => {},
+  editBuild: async (buildId: string, buildData: IBuild) => {},
+  deleteBuild: async (buildId: string): Promise<boolean> => {
+    return true
+  },
 }
-
-
 
 export interface Pagination {
   page: number

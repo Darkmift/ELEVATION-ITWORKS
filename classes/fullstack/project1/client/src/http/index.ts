@@ -8,8 +8,8 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-export const getBuildsPaginated = async ({ page, limit, sort }: Pagination): Promise<Build[]> => {
-  const response = await axiosInstance.get<Build[]>(`/builds?page=${page}&limit=${limit}&sort=${sort}`);
+export const getBuildsPaginated = async ({ page, limit, sort }: Pagination): Promise<{ builds: Build[]; totalCount: number }> => {
+  const response = await axiosInstance.get<{ builds: Build[]; totalCount: number }>(`/builds?page=${page}&limit=${limit}&sort=${sort}`);
   return response.data;
 };
 

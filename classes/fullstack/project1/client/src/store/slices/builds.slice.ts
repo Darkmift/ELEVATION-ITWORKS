@@ -4,12 +4,14 @@ import { Pagination } from '../../types/pagination';
 import { fetchBuildsPaginatedThunk } from '../thunks/builds';
 
 type BuildState = {
+  totalCount: number;
   buildsPage: Build[];
   pagination: Pagination;
 };
 
 const initialState: BuildState & FetchStatusState = {
   buildsPage: [],
+  totalCount: 0,
   pagination: {
     page: 0,
     limit: 0,
@@ -23,7 +25,7 @@ const buildSlice = createSlice({
   name: 'build',
   initialState,
   reducers: {
-    setBuilds(state, action: PayloadAction<BuildState>) {
+    setBuilds(state, action: PayloadAction<Omit<BuildState, 'buildsPerWeek'>>) {
       state.buildsPage = action.payload.buildsPage;
       state.pagination = action.payload.pagination;
     },
@@ -35,8 +37,9 @@ const buildSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchBuildsPaginatedThunk.fulfilled, (state, action) => {
-        state.buildsPage = action.payload;
-        state.loading = false;
+        state.buildsPage = action.payload.builds;
+        state.totalCount = action.payload.totalCount;
+        state.loading = false
       })
       .addCase(fetchBuildsPaginatedThunk.rejected, (state, action) => {
         console.log('🚀 ~ builder.addCase ~ action:', action);
