@@ -120,6 +120,41 @@ function App() {
 
   const { data, options } = chartDataProvider(buildsPerWeek);
 
+  const tableColumns = [{
+    displayName: "Status",
+    dbName: "status",
+    width: "136px"
+    },
+    {displayName: "Build Id",
+    dbName: "buildId",
+    width: "160px"
+    },
+    {displayName: "Caption",
+    dbName: "caption",
+    width: "364px"
+    },
+    {displayName: "Command",
+    dbName: "command",
+    width: "364px"
+    },
+    {displayName: "Start Time",
+    dbName: "startTime",
+    width: "144px"
+    },
+    {displayName: "End Time",
+    dbName: "endTime",
+    width: "144px"
+    },
+    {displayName: "Errors Number",
+    dbName: "errorsNumber",
+    width: "144px"
+    },
+    {displayName: "Warnings Number",
+    dbName: "warningsNumber",
+    width: "168px"
+    },
+  ]
+
   return (
     <>
       <Title text="Vite + React" size={TitleSize.H1} className="text-nowrap" />
@@ -127,23 +162,23 @@ function App() {
       <Table>
         <THeader>
           <TR rowType="header">
-            {Object.keys(builds[0]).map((key) => {
-              return <TH key={key}>{key}</TH>;
+            {tableColumns.map((column) => {
+              return <TH key={column.dbName} classNames={`w-[${column.width}]`}>{column.displayName}</TH>;
             })}
           </TR>
         </THeader>
         <TBody>
           {builds.map((build) => {
             return (
-              <TR rowType={build.status} key={build.buildId}>
-                {Object.keys(build).map((key) => {
+              <TR key={build.buildId}>
+                {tableColumns.map((column) => {
                   return (
                     <TD
-                      key={build.buildId + key}
-                      classNames={key === 'status' ? 'w-[136px]' : ''}
-                      status={key === 'status' ? build.status : ''}
+                      key={build.buildId + column}
+                      classNames={`w-[${column.width}]`}
+                      status={column.dbName === 'status' ? build.status : ''}
                     >
-                      {build[key as keyof typeof build]}
+                      {build[column.dbName as keyof typeof build]}
                     </TD>
                   );
                 })}
