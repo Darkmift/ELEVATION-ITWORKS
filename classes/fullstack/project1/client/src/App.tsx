@@ -115,8 +115,8 @@ function App() {
     return <div>Error fetching builds: {errorBuildFetch}</div>;
   }
 
-  if (!Array.isArray(builds) || builds.length === 0) {
-    return <div>No builds found.</div>;
+  if (builds.length === 0) {
+    return <div>Loading...</div>;
   }
 
   const { data, options } = chartDataProvider(buildsPerWeek);

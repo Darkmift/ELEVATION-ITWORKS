@@ -7,6 +7,11 @@ const LanguageSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'he', name: 'עברית' },
+  ];
+
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
     setIsOpen(false);
@@ -41,20 +46,16 @@ const LanguageSelector: React.FC = () => {
       {isOpen && (
         <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-darkCard ring-1 ring-black ring-opacity-5">
           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-            <button
-              onClick={() => changeLanguage('en')}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-darkText hover:bg-gray-200 dark:hover:bg-gray-600"
-              role="menuitem"
-            >
-              English
-            </button>
-            <button
-              onClick={() => changeLanguage('he')}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-darkText hover:bg-gray-200 dark:hover:bg-gray-600"
-              role="menuitem"
-            >
-              עברית
-            </button>
+            {languages.map((language) => (
+              <button
+                key={language.code}
+                onClick={() => changeLanguage(language.code)}
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-darkText hover:bg-gray-200 dark:hover:bg-gray-600"
+                role="menuitem"
+              >
+                {language.name}
+              </button>
+            ))}
           </div>
         </div>
       )}
