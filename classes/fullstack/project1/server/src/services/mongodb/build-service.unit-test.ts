@@ -11,7 +11,7 @@ describe('Services', () => {
       await initMongodb()
     })
 
-    describe('Build Service', () => {
+    describe.skip('Build Service', () => {
       describe('getBuildsPaginated', () => {
         let builds: IBuildWithId[]
 

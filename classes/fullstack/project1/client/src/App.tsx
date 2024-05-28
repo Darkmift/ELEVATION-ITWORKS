@@ -9,8 +9,8 @@ import { TBody, TD, TH, THeader, TR, Table } from './components/Table/Table';
 
 import { fetchBuildsPaginatedThunk } from './store/thunks/builds';
 
-function App() {
-  const options: ChartOptions = {
+function chartDataProvider(rowData: Record<string, number>) {
+  const options: ChartOptions<'bar'> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -41,9 +41,9 @@ function App() {
       y: {
         beginAtZero: true,
         grid: {
-          drawBorder: false,
+          // drawBorder: false,
           color: 'rgba(210, 212, 218, 1)',
-          borderDash: [8, 4],
+          // borderDash: [8, 4],
           drawTicks: false,
         },
         ticks: {
@@ -62,6 +62,22 @@ function App() {
     },
   };
 
+  const data: ChartData<'bar', number[], string> = {
+    labels: Object.keys(rowData),
+    datasets: [
+      {
+        label: 'Total Builds',
+        data: Object.values(rowData),
+        backgroundColor: 'rgba(53, 204, 208, 1)',
+        maxBarThickness: 56,
+      },
+    ],
+  };
+
+  return { options, data };
+}
+
+function App() {
   const dispatch = useAppDispatch();
   const buildsPerWeek = useAppSelector((state) => state.buildReducer.buildsPerWeek);
   const builds = useAppSelector((state) => state.buildReducer.buildsPage);
@@ -98,22 +114,11 @@ function App() {
     return <div>Error fetching builds: {errorBuildFetch}</div>;
   }
 
-  const data: ChartData = {
-    labels: Object.keys(buildsPerWeek),
-    datasets: [
-      {
-        label: 'Total Builds',
-        data: Object.values(buildsPerWeek),
-        backgroundColor: 'rgba(53, 204, 208, 1)',
-        maxBarThickness: 56,
-      },
-    ],
-  };
-  // const [count, setCount] = useState(0)
-
   if (builds.length === 0) {
     return <div>Loading...</div>;
   }
+
+  const { data, options } = chartDataProvider(buildsPerWeek);
 
   return (
     <>
