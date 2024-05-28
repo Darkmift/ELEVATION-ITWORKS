@@ -1,13 +1,12 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { Build, BuildCountWeekly, FetchStatusState } from "../../types"
-import { Pagination } from "../../types/pagination"
-import { fetchBuildsPaginatedThunk } from "../thunks/builds"
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Build, FetchStatusState } from '../../types';
+import { Pagination } from '../../types/pagination';
+import { fetchBuildsPaginatedThunk } from '../thunks/builds';
 
 type BuildState = {
   totalCount: number;
   buildsPage: Build[];
   pagination: Pagination;
-  buildsPerWeek: BuildCountWeekly;
 };
 
 const initialState: BuildState & FetchStatusState = {
@@ -18,7 +17,6 @@ const initialState: BuildState & FetchStatusState = {
     limit: 0,
     sort: '',
   },
-  buildsPerWeek: {},
   loading: false,
   error: null,
 };
@@ -31,22 +29,14 @@ const buildSlice = createSlice({
       state.buildsPage = action.payload.buildsPage;
       state.pagination = action.payload.pagination;
     },
-    setBuildsPerWeek(state, action: PayloadAction<BuildCountWeekly>) {
-      state.buildsPerWeek = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
+
       .addCase(fetchBuildsPaginatedThunk.pending, (state) => {
-        state.loading = true
+        state.loading = true;
       })
       .addCase(fetchBuildsPaginatedThunk.fulfilled, (state, action) => {
-        // const validateddata = validate(action.payload)
-        // if (validateddata) {
-        //   state.error = action.error.message || 'An error occurred'
-        //   state.loading = false
-        //   return
-        // }
         state.buildsPage = action.payload.builds;
         state.totalCount = action.payload.totalCount;
         state.loading = false
@@ -59,5 +49,5 @@ const buildSlice = createSlice({
   },
 });
 
-export const { setBuilds, setBuildsPerWeek } = buildSlice.actions;
+export const { setBuilds } = buildSlice.actions;
 export default buildSlice.reducer;

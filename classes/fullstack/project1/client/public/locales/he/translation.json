@@ -1,0 +1,18 @@
+{
+  "common": {
+    "title": "וויט + ריאקט",
+    "loading": "טוען...",
+    "errorFetchingBuilds": "שגיאה בהבאת בניות: {{error}}"
+  },
+  "builds": {
+    "status": "סטטוס",
+    "buildId": "מזהה בנייה",
+    "caption": "כותרת",
+    "command": "פקודה",
+    "startTime": "זמן התחלה",
+    "endTime": "זמן סיום",
+    "errorsNumber": "מספר שגיאות",
+    "warningsNumber": "מספר אזהרות",
+    "totalBuilds": "סה\"כ בניות"
+  }
+}
