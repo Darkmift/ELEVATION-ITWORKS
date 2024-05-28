@@ -1,0 +1,38 @@
+.pagination-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: none;
+  }
+  
+  .pagination-arrow {
+    background: none;
+    border: none;
+    color: #616667;
+    cursor: pointer;
+    padding: 2px 5px;
+    margin: 0 2px;
+    }
+  
+  .pagination-arrow:disabled {
+    color: #6E7A7D66;
+  }
+  
+  .number-badge {
+    background: none;
+    border: none;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    }
+
+  .number-badge:hover:not(.active) {
+    background-color: #525765;
+    color: #ffffff;  
+  }
+  
+  .number-badge.active {
+    background-color: #525765;
+    color: #ffffff;
+    }  
