@@ -1,3 +1,4 @@
+import '../../index.css';
 import { FC } from 'react';
 
 export enum TitleSize {
