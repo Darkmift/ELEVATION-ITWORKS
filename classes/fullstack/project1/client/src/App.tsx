@@ -1,10 +1,9 @@
 import React from 'react';
 import './App.css'
-import Footer from './components/Footer/Footer'
+import PaginationBar from './components/PaginationBar/PaginationBar'
 
 function App() {
   const [currentPage, setCurrentPage] = React.useState<number>(1);
-  const total = 82;
   const totalPages = 10;
 
   const handlePageChange = (page:number) => {
@@ -12,12 +11,11 @@ function App() {
   };
 
   return (
-    <Footer 
-    total={total}
+    <PaginationBar  
     currentPage={currentPage}
     totalPages={totalPages}
     onPageChange={handlePageChange}
-  />
+/>
 )
 }
 
