@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Pagination } from '../../types/pagination';
-import { getBuildGroupedByWeek, getBuildsPaginated } from '../../http';
-import { Build, BuildCountWeekly } from '../../types';
+import { getBuildsPaginated } from '../../http';
+import { Build} from '../../types';
 
 export const fetchBuildsPaginatedThunk = createAsyncThunk<
   Build[],
@@ -10,13 +10,3 @@ export const fetchBuildsPaginatedThunk = createAsyncThunk<
 >('builds/fetchBuildsPaginated', async ({ limit, page, sort }: Pagination) => {
   return await getBuildsPaginated({ limit, page, sort });
 });
-
-export const fetchBuildGroupedByWeekThunk = createAsyncThunk<BuildCountWeekly, { rejectValue: Error }>(
-  'builds/fetchBuildGroupedByWeek',
-  async () => {
-    const result = await getBuildGroupedByWeek();
-    console.log("getBuildGroupedByWeek", result);
-
-    return result;
-  }
-);
