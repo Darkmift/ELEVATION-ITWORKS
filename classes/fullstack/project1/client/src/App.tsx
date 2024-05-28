@@ -7,7 +7,7 @@ import { setBuildsPerWeek } from './store/slices/builds.slice';
 import { ChartData, ChartOptions } from 'chart.js';
 import { TBody, TD, TH, THeader, TR, Table } from './components/Table/Table';
 
-import { fetchBuildsPaginatedThunk } from './store/thunks/builds';
+import { fetchBuildGroupedByWeekThunk, fetchBuildsPaginatedThunk } from './store/thunks/builds';
 
 function App() {
   const options: ChartOptions = {
@@ -67,25 +67,17 @@ function App() {
   const builds = useAppSelector((state) => state.buildReducer.buildsPage);
   const isLoading = useAppSelector((state) => state.buildReducer.loading);
   const errorBuildFetch = useAppSelector((state) => state.buildReducer.error);
+  const isBuildGroupedLoading = useAppSelector((state) => state.buildReducer.groupedLoading);
+  const errorBuildGrouped = useAppSelector((state) => state.buildReducer.groupedError);
 
   const getPagintedBuilds = (page: number, limit: number, sort: 'asc' | 'desc') => {
     dispatch(fetchBuildsPaginatedThunk({ page, limit, sort }));
   };
 
   useEffect(() => {
-    dispatch(
-      setBuildsPerWeek({
-        'Week 1': 100,
-        'Week 2': 200,
-        'Week 3': 150,
-        'Week 4': 220,
-        'Week 5': 300,
-        'Week 6': 230,
-        'Week 7': 400,
-      })
-    );
-
     getPagintedBuilds(1, 10, 'asc');
+
+    dispatch(fetchBuildGroupedByWeekThunk());
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -118,7 +110,11 @@ function App() {
   return (
     <>
       <Title text="Vite + React" size={TitleSize.H1} className="text-nowrap" />
-      <Graph data={data} options={options} classNames="h-[300px] mb-5" />
+      {isBuildGroupedLoading ? (
+        <div>Chart Data Is Loading</div>
+      ) : (
+        <Graph data={data} options={options} classNames="h-[300px] mb-5" />
+      )}
       <Table>
         <THeader>
           <TR rowType="header">
@@ -128,7 +124,7 @@ function App() {
           </TR>
         </THeader>
         <TBody>
-          {builds.map((build) => {
+          {/* {builds.map((build) => {
             return (
               <TR rowType={build.status} key={build.buildId}>
                 {Object.keys(build).map((key) => {
@@ -144,7 +140,7 @@ function App() {
                 })}
               </TR>
             );
-          })}
+          })} */}
         </TBody>
       </Table>
     </>
