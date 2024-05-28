@@ -1,4 +1,27 @@
-:root {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: 'Gordita';
+  src: url('/src/assets/fonts/Gordita-Light.woff2') format('woff2'),
+    url('/src/assets/fonts/Gordita-Light.woff') format('woff'),
+    url('/src/assets/fonts/Gordita-Light.ttf') format('truetype'), url('/src/assets/fonts/Gordita-Light.eot');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gordita';
+  src: url('/src/assets/fonts/Gordita-Medium.woff2') format('woff2'),
+    url('/src/assets/fonts/Gordita-Medium.woff') format('woff'),
+    url('/src/assets/fonts/Gordita-Medium.ttf') format('truetype'), url('/src/assets/fonts/Gordita-Light.eot');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -65,4 +88,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */ 
