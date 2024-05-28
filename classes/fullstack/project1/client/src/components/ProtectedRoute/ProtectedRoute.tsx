@@ -7,9 +7,9 @@ type ProtectedRouteProps = {
 }
 
 function ProtectedRoute({ redirectPath }: ProtectedRouteProps) {
-  const { admin } = useAppSelector(state => state.authReducer)
+  const username  = useAppSelector(state => state.authReducer.admin.username)
 
-  if (!admin.username) return <Navigate to={redirectPath} />;
+  if (!username?.length) return <Navigate to={redirectPath} />;
 
   return <Outlet/>
 }
