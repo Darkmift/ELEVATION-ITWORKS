@@ -1,19 +1,14 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Build, BuildCountWeekly } from '../../types';
-import { Pagination } from '../../types/pagination';
-import { fetchBuildGroupedByWeekThunk, fetchBuildsPaginatedThunk } from '../thunks/builds';
-
-type FetchStatusState = {
-  loading: boolean;
-  error: string | null;
-  groupedLoading: boolean,
-  groupedError: string | null,  
-};
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { Build, BuildCountWeekly, FetchStatusState } from "../../types"
+import { Pagination } from "../../types/pagination"
+import { fetchBuildsPaginatedThunk, fetchBuildGroupedByWeekThunk } from "../thunks/builds"
 
 type BuildState = {
   buildsPage: Build[];
   pagination: Pagination;
   buildsPerWeek: BuildCountWeekly;
+  groupedLoading: boolean;
+  groupedError: string | null;  
 };
 
 const initialState: BuildState & FetchStatusState = {
@@ -44,9 +39,10 @@ const buildSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      
       .addCase(fetchBuildsPaginatedThunk.pending, (state) => {
-        state.loading = true;
-      })
+          state.loading = true;
+        })
       .addCase(fetchBuildsPaginatedThunk.fulfilled, (state, action) => {
         state.buildsPage = action.payload;
         state.loading = false;

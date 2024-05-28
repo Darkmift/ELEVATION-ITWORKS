@@ -1,5 +1,5 @@
 import express from 'express'
-import buildSchema from './joi/schemas'
+import buildSchema from './zod/schemas'
 import { buildService } from '../services/mongodb/build-service'
 import { IBuild } from '@/types/build'
 
