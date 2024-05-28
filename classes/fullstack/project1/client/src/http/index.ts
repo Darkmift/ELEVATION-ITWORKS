@@ -32,4 +32,18 @@ export const getBuildGroupedByWeek = async (): Promise<BuildCountWeekly> => {
   return response.data;
 };
 
+export const getBuildById = async (stringId: string): Promise<Build | null> => {
+
+  try {
+    // ! ID needs to be passed 
+    // const response = await axiosInstance.get<Build>(`/single/${stringId}`); 
+    const response = await axiosInstance.get<Build>(`/builds/single/66542ff2158ee7cf7471494e`); 
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null
+  }
+
+}
+
 export default axiosInstance;

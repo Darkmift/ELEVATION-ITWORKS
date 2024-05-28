@@ -25,10 +25,13 @@ const buildSlice = createSlice({
   name: 'build',
   initialState,
   reducers: {
-    setBuilds(state, action: PayloadAction<Omit<BuildState, 'buildsPerWeek'>>) {
-      state.buildsPage = action.payload.buildsPage;
-      state.pagination = action.payload.pagination;
+    setBuilds(state: BuildState, action: PayloadAction<Omit<BuildState, 'buildsPerWeek'>>) {
+      state.buildsPage = action.payload.buildsPage
+      state.pagination = action.payload.pagination
     },
+    setBuildsPerWeek(state: BuildState, action: PayloadAction<BuildCountWeekly>) {
+      state.buildsPerWeek = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
