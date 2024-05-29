@@ -23,9 +23,7 @@ export const login = async (req, res) => {
 
 export const checkLoginInput = (req, res, next) => {
   const { username, password } = req.body
-  console.log("🚀 ~ checkLoginInput ~ { username, password } :", { username, password } )
   const result = adminLoginSchema.safeParse({ username, password })
-  console.log("🚀 ~ checkLoginInput ~ result:", result)
   if (!result.success) {
     return res.status(400).json({ message: 'Invalid username or password' })
   }

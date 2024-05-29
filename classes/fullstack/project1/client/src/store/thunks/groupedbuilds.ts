@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getBuildGroupedByWeek } from '../../http';
 import { BuildCountWeekly } from '../../types';
+import { getBuildGroupedByWeek } from '../../http';
 
-export const fetchBuildGroupedByWeekThunk = createAsyncThunk<BuildCountWeekly, { rejectValue: Error }>(
+export const fetchBuildGroupedByWeekThunk = createAsyncThunk<BuildCountWeekly, void, { rejectValue: Error }>(
   'builds/fetchBuildGroupedByWeek',
   async () => {
     try {

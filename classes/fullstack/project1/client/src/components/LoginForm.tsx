@@ -1,8 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { loginThunk } from '../store/thunks/auth.thunk';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -13,22 +16,20 @@ const LoginForm = () => {
   const adminFirstName = useAppSelector((state) => state.authReducer.admin.firstName);
   const adminLastname = useAppSelector((state) => state.authReducer.admin.lastName);
 
+  useEffect(() => {
+    if (adminFirstName && adminLastname) {
+      navigate('/home');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminFirstName, adminLastname]);
+
   const onSubmit = (data: { username: string; password: string }) => {
-    console.log('🚀 ~ onSubmit ~ data:', data);
     dispatch(loginThunk(data));
   };
 
-  // console.log('🚀 ~ LoginForm ~ errors:', errors);
 
   return (
     <>
-      {adminFirstName && adminLastname ? (
-        <h1>
-          Welcome {adminFirstName},{adminLastname}
-        </h1>
-      ) : (
-        ''
-      )}
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm mx-auto p-4 bg-white shadow-md rounded-lg">
         <div className="mb-4">
           <input
