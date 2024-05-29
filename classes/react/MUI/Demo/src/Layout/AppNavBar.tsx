@@ -8,8 +8,13 @@ import {
   Typography,
 } from '@mui/material'
 import ToggleTheme from '../components/ToggleTheme'
+import { Link } from 'react-router-dom'
 
-const pages = ['Products', 'Pricing', 'Blog']
+const pages = [
+  { name: 'Home', path: '/' },
+  { name: 'Login', path: '/login' },
+  { name: 'Register', path: '/register' },
+]
 
 type Props = {
   toggleDrawer: () => void
@@ -37,27 +42,41 @@ export default function AppNavBar({ toggleDrawer }: Props) {
           APP
         </Typography>
         {/* navlinks */}
-        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+        <Box
+          sx={{
+            display: { xs: 'none', md: 'flex' },
+          }}
+        >
           {pages.map(page => (
-            <Button key={page} sx={{ my: 2, color: 'white', display: 'block' }}>
-              {page}
+            <Button
+              sx={{
+                color: 'white',
+                textDecoration: 'none',
+              }}
+              key={page.name}
+              component={Link}
+              to={{ pathname: page.path }}
+            >
+              {page.name}
             </Button>
           ))}
         </Box>
         {/* toggle theme */}
-        <ToggleTheme />
-        {/* avatar */}
-        <IconButton
-          sx={{ p: 0 }}
-          onClick={() => {
-            toggleDrawer()
-          }}
-        >
-          <Avatar
-            alt="Remy Sharp"
-            src="https://cloud.24ways.org/authors/remysharp280.jpg"
-          />
-        </IconButton>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <ToggleTheme />
+          {/* avatar */}
+          <IconButton
+            sx={{ p: 0 }}
+            onClick={() => {
+              toggleDrawer()
+            }}
+          >
+            <Avatar
+              alt="Remy Sharp"
+              src="https://cloud.24ways.org/authors/remysharp280.jpg"
+            />
+          </IconButton>
+        </Box>
       </Toolbar>
     </AppBar>
   )

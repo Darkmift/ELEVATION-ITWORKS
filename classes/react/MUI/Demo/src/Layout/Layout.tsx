@@ -40,7 +40,12 @@ export default function Layout({ children }: Props) {
   return (
     <>
       <AppNavBar toggleDrawer={toggleDrawer} />
-      <Container sx={{ marginTop: '65px' }}>
+      <Container
+        sx={{
+          marginTop: '65px',
+          padding: 3,
+        }}
+      >
         <AppDrawer open={open} toggleDrawer={toggleDrawer} />
         {children}
       </Container>
