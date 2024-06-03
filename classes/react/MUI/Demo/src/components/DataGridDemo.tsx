@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
@@ -29,7 +28,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
     width: 160,
-    valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
+    valueGetter: (_, row) => `${row.firstName || ''} ${row.lastName || ''}`,
   },
 ];
 
