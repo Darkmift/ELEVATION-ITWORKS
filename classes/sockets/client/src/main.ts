@@ -1,7 +1,8 @@
 import './style.css'
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:3000");
+const VITE_SERVER_URI = import.meta.env.VITE_SERVER_URI as string;
+const socket = io(VITE_SERVER_URI);
 let clientName = '';
 
 socket.on("connect", () => {

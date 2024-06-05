@@ -2,12 +2,14 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "type": "module",
+  "main": "main.js",
+  "engines": {
+    "node": ">=22.1.0"
+  },
   "scripts": {
     "ts:check": "tsc --noEmit",
     "build": "rimraf build && tsc",
-    "start": "npm run build && tsx build/src/index.js",
+    "start": "tsx build/main.js",
     "lint": "eslint --fix --config ./eslint.config.js --debug",
     "format": "prettier --write 'src/**/*.{ts,js,json}' 'tests/**/*.{ts,js,json}'",
     "dev": "tsx watch --clear-screen=false main.ts"
@@ -21,6 +23,7 @@
     "dotenv": "^16.4.5",
     "eslint-config-love": "^47.0.0",
     "express": "^4.19.2",
+    "rimraf": "^5.0.7",
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
